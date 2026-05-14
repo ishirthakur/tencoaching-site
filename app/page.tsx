@@ -248,8 +248,18 @@ export default function HomePage() {
       </div>
 
       {/* ── HERO ────────────────────────────────────────────────────────── */}
-      <section style={{ padding: "60px 40px 40px", position: "relative" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 48, alignItems: "flex-start" }}>
+      <section style={{ padding: "60px 40px 40px", position: "relative", overflow: "hidden" }}>
+        {/* Watermark */}
+        <div style={{
+          position: "absolute", top: "50%", left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: 1400, height: 1400,
+          opacity: 0.18, pointerEvents: "none", zIndex: 0,
+        }}>
+          <Image src="/tc-logo-green.png" alt="" width={1400} height={1400} priority style={{ display: "block" }} />
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 48, alignItems: "flex-start", position: "relative", zIndex: 1 }}>
 
           {/* Left — copy */}
           <div>
@@ -358,6 +368,7 @@ export default function HomePage() {
             marginTop: 60, background: INK, color: CREAM,
             display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
             border: `1.5px solid ${INK}`, borderRadius: 2,
+            position: "relative", zIndex: 1,
           }}
         >
           {STATS.map((s, i) => (
