@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 
 // ── Helpers ───────────────────────────────────────────────────────────────
@@ -107,13 +108,16 @@ function LogoMark({ size = 56, invert = false }: { size?: number; invert?: boole
 }
 
 function Logo({
-  size = 56, invert = false, withWordmark = false, wordmarkSize = 26,
+  size = 56, invert = false, withWordmark = false, wordmarkSize = 26, src, priority = false,
 }: {
-  size?: number; invert?: boolean; withWordmark?: boolean; wordmarkSize?: number;
+  size?: number; invert?: boolean; withWordmark?: boolean; wordmarkSize?: number; src?: string; priority?: boolean;
 }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-      <LogoMark size={size} invert={invert} />
+      {src
+        ? <Image src={src} alt="TENSCOACHING logo" height={size} width={size} priority={priority} style={{ display: "block", flexShrink: 0 }} />
+        : <LogoMark size={size} invert={invert} />
+      }
       {withWordmark && (
         <div style={{ fontFamily: display, fontSize: wordmarkSize, letterSpacing: 2.5, color: invert ? CREAM : INK, whiteSpace: "nowrap" }}>
           TEN COACHING
@@ -214,10 +218,10 @@ export default function HomePage() {
 
       {/* ── NAV ─────────────────────────────────────────────────────────── */}
       <nav style={{
-        padding: "20px 40px", display: "flex", justifyContent: "space-between", alignItems: "center",
+        padding: "14px 40px", display: "flex", justifyContent: "space-between", alignItems: "center",
         borderBottom: `1.5px solid ${INK}`,
       }}>
-        <Logo size={56} withWordmark wordmarkSize={28} />
+        <Logo src="/tc-logo-green.png" size={72} priority withWordmark wordmarkSize={36} />
         <div style={{ display: "flex", gap: 28, alignItems: "center" }}>
           {["Program", "Results", "About", "FAQ"].map((l) => (
             <a key={l} href={`#${l.toLowerCase()}`} style={{
@@ -297,12 +301,12 @@ export default function HomePage() {
           </div>
 
           {/* Right — polaroid stack */}
-          <div style={{ position: "relative", height: 520 }}>
+          <div style={{ position: "relative", height: 520, width: 480, margin: "0 auto" }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.35 }}
-              style={{ position: "absolute", top: 0, left: 20 }}
+              style={{ position: "absolute", top: 0, left: 0 }}
             >
               <div style={{
                 transform: "rotate(-4deg)", background: CREAM, padding: 14,
@@ -317,7 +321,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.48 }}
-              style={{ position: "absolute", top: 80, right: 20 }}
+              style={{ position: "absolute", top: 80, right: 0 }}
             >
               <div style={{
                 transform: "rotate(5deg)", background: CREAM, padding: 12,
@@ -332,7 +336,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              style={{ position: "absolute", bottom: 0, left: 80 }}
+              style={{ position: "absolute", bottom: 0, left: 60 }}
             >
               <div style={{
                 transform: "rotate(-2deg)", background: CREAM, padding: 12,
@@ -693,28 +697,27 @@ export default function HomePage() {
       </motion.section>
 
       {/* ── FOOTER ──────────────────────────────────────────────────────── */}
-      <footer style={{
-        padding: 40, background: INK, color: CREAM,
-        display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr", gap: 40, alignItems: "flex-start",
-      }}>
-        <div>
-          <Logo size={64} invert withWordmark wordmarkSize={26} />
-          <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: 1, opacity: 0.6, marginTop: 14 }}>
+      <footer style={{ padding: 40, background: INK, color: CREAM }}>
+        <div style={{ marginBottom: 32, paddingBottom: 32, borderBottom: "1px solid rgba(245,237,216,0.15)" }}>
+          <Logo src="/tc-logo-white.png" size={160} invert withWordmark wordmarkSize={32} />
+          <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: 1, opacity: 0.6, marginTop: 16 }}>
             SYDNEY · AUSTRALIA · EST. 2024
           </div>
         </div>
-        <div>
-          <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, opacity: 0.5, marginBottom: 10, textTransform: "uppercase" }}>Social</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 14 }}>
-            <a href="#" style={{ color: CREAM, textDecoration: "none" }}>@tencoaching · Instagram ↗</a>
-            <a href="#" style={{ color: CREAM, textDecoration: "none" }}>@tencoaching · TikTok ↗</a>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40 }}>
+          <div>
+            <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, opacity: 0.5, marginBottom: 10, textTransform: "uppercase" }}>Social</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 14 }}>
+              <a href="#" style={{ color: CREAM, textDecoration: "none" }}>@tencoaching · Instagram ↗</a>
+              <a href="#" style={{ color: CREAM, textDecoration: "none" }}>@tencoaching · TikTok ↗</a>
+            </div>
           </div>
-        </div>
-        <div>
-          <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, opacity: 0.5, marginBottom: 10, textTransform: "uppercase" }}>Contact</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 14 }}>
-            <a href="#" style={{ color: CREAM, textDecoration: "none" }}>hello@tencoaching.com.au</a>
-            <a onClick={onBook} style={{ color: LIGHT, cursor: "pointer", textDecoration: "none" }}>Book a call →</a>
+          <div>
+            <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, opacity: 0.5, marginBottom: 10, textTransform: "uppercase" }}>Contact</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 14 }}>
+              <a href="#" style={{ color: CREAM, textDecoration: "none" }}>hello@tencoaching.com.au</a>
+              <a onClick={onBook} style={{ color: LIGHT, cursor: "pointer", textDecoration: "none" }}>Book a call →</a>
+            </div>
           </div>
         </div>
       </footer>
