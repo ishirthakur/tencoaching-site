@@ -136,6 +136,23 @@ function GalleryPhoto({ src, label }: { src: string; label: string }) {
   );
 }
 
+// ── Hero polaroid photo component ────────────────────────────────────────
+
+function HeroPhoto({ src, width, height }: { src: string; width: number; height: number }) {
+  const [failed, setFailed] = useState(false);
+  return (
+    <div style={{
+      position: "relative", width, height, background: INK,
+      display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden",
+    }}>
+      <Image src="/tc-logo-white.png" alt="" width={64} height={64} style={{ opacity: 0.3, flexShrink: 0 }} />
+      {!failed && (
+        <Image src={src} alt="" fill style={{ objectFit: "cover" }} onError={() => setFailed(true)} />
+      )}
+    </div>
+  );
+}
+
 // ── Logo components ───────────────────────────────────────────────────────
 
 function LogoMark({ size = 56, invert = false }: { size?: number; invert?: boolean }) {
@@ -407,7 +424,7 @@ export default function HomePage() {
                 transform: "rotate(-4deg)", background: CREAM, padding: 14,
                 boxShadow: `0 8px 24px rgba(0,0,0,0.15), 3px 3px 0 ${INK}`, border: `1px solid ${BORDER}`,
               }}>
-                <Placeholder label="coach portrait" style={{ width: 220, height: 260 }} seed={1} />
+                <HeroPhoto src="/photos/tenhang-hero-01.jpg" width={220} height={260} />
                 <div style={{ fontFamily: mono, fontSize: 11, textAlign: "center", marginTop: 10, color: INK, letterSpacing: 1 }}>YOUR COACH · PEAK</div>
               </div>
             </motion.div>
@@ -422,7 +439,7 @@ export default function HomePage() {
                 transform: "rotate(5deg)", background: CREAM, padding: 12,
                 boxShadow: `0 8px 24px rgba(0,0,0,0.15), 3px 3px 0 ${INK}`, border: `1px solid ${BORDER}`,
               }}>
-                <Placeholder label="training" style={{ width: 200, height: 260 }} seed={2} />
+                <HeroPhoto src="/photos/tenhang-hero-02.jpg" width={200} height={260} />
                 <div style={{ fontFamily: mono, fontSize: 11, textAlign: "center", marginTop: 8, color: INK, letterSpacing: 1 }}>PHILIPPINES · LIVING PROOF</div>
               </div>
             </motion.div>
@@ -437,7 +454,7 @@ export default function HomePage() {
                 transform: "rotate(-2deg)", background: CREAM, padding: 12,
                 boxShadow: `0 8px 24px rgba(0,0,0,0.15), 3px 3px 0 ${INK}`, border: `1px solid ${BORDER}`,
               }}>
-                <Placeholder label="on the court" style={{ width: 240, height: 200 }} seed={3} />
+                <HeroPhoto src="/photos/tenhang-hero-03.jpg" width={240} height={200} />
                 <div style={{ fontFamily: mono, fontSize: 11, textAlign: "center", marginTop: 8, color: INK, letterSpacing: 1 }}>THE FOUNDATION · WESTERN SYD</div>
               </div>
             </motion.div>
