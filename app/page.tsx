@@ -502,15 +502,7 @@ export default function HomePage() {
         >
           {/* Image col */}
           <motion.div variants={fadeIn} style={{ position: "relative" }}>
-            <Placeholder label="coach travel" style={{ width: "100%", height: 620 }} seed={99} />
-            <div style={{
-              position: "absolute", bottom: -16, right: -16, background: MID, color: CREAM,
-              padding: "14px 20px", borderRadius: 2, transform: "rotate(-3deg)",
-              fontFamily: display, fontSize: 22, letterSpacing: 1, border: `1.5px solid ${INK}`,
-              boxShadow: `3px 3px 0 ${INK}`,
-            }}>
-              60KG → 86KG
-            </div>
+            <ClientPhoto src="/photos/tenhang-japan-travel.jpg" label="JAPAN · TRAVEL" />
             <div style={{
               position: "absolute", top: -14, left: 40, width: 80, height: 24,
               background: TAPE, transform: "rotate(-3deg)",
@@ -523,19 +515,12 @@ export default function HomePage() {
               [04] — ABOUT THE COACH
             </motion.div>
             <motion.h2 variants={fadeUp} style={{ fontFamily: display, fontSize: 80, letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
-              MY OWN<br /><span style={{ color: DEEP }}>TRANSFORMATION</span><br />IS WHERE IT STARTED.
+              MEET YOUR <span style={{ color: DEEP, fontStyle: "italic" }}>COACH.</span>
             </motion.h2>
-            <motion.div variants={fadeUp} style={{ marginTop: 28, fontSize: 17, color: SUB, lineHeight: 1.7, maxWidth: 560 }}>
-              <p>I began my own journey well underweight, trying every free program I could find online with very little to show for it. What eventually worked was treating my body as a system — structured training, properly planned nutrition, and a program tailored to my individual lifestyle.</p>
-              <p>Today I coach clients navigating the same challenges I once did. Driven, busy people who want a meaningful physical transformation without compromising the career, relationships and experiences that matter to them.</p>
-            </motion.div>
-            <motion.div variants={fadeUp} style={{ marginTop: 28, display: "flex", gap: 8, flexWrap: "wrap" }}>
-              {["CERT III FITNESS · IN PROGRESS", "CERT IV FITNESS · IN PROGRESS", "CERT III NUTRITION · IN PROGRESS"].map((c) => (
-                <span key={c} style={{
-                  padding: "6px 12px", background: INK, color: CREAM,
-                  fontFamily: mono, fontSize: 10, letterSpacing: 1,
-                }}>{c}</span>
-              ))}
+            <motion.div variants={fadeUp} style={{ marginTop: 28, fontSize: 17, color: SUB, lineHeight: 1.7, maxWidth: 560, display: "flex", flexDirection: "column", gap: "1.2em" }}>
+              <p>I&apos;m Tenhang — a 22 year old from Western Sydney who&apos;s obsessed with fitness, living life, and helping people become the best version of themselves.</p>
+              <p>As a kid I tried every sport I could get my hands on — footy, AFL — to finding my real home on the basketball court. Basketball has been a massive part of my life since high school and still is today, and eventually that love for sport led me to falling in love with the gym. Fitness was never something I forced, it was just always there, evolving with me. When I started taking it seriously something clicked. Not just physically but mentally. I realised you don&apos;t have to choose between looking your best and living your life — the late nights, the trips overseas, the weekends with people you love. You can have both.</p>
+              <p>Today I coach people who want that same thing. I travel whenever I have the opportunity, I&apos;m a foodie at heart who loves eating a lot, and I&apos;m always down for a good time — fitness never stopped me from any of that, if anything it made me enjoy it even more. Every client I work with I treat like a mate. I&apos;m invested in where you end up because watching someone hit their goal is genuinely one of the best feelings I know. This started as a passion. Now it&apos;s my purpose.</p>
             </motion.div>
           </div>
         </motion.div>
