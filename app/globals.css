@@ -36,3 +36,16 @@ a { -webkit-tap-highlight-color: transparent; }
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+
+.program-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 600px) {
+  .program-grid {
+    grid-template-columns: 1fr;
+  }
+}

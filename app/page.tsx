@@ -167,12 +167,18 @@ const FAQS = [
 ];
 
 const PROGRAM_FEATURES = [
-  { t: "In-depth Onboarding",   d: "A thorough 60-minute call to map your body, training history, lifestyle and specific goals before any programming begins.", tag: "Week 0" },
-  { t: "Tailored Training",     d: "Programs built and adjusted block by block to match your progress, recovery and schedule — not a static PDF.",               tag: "Ongoing" },
-  { t: "Nutrition Planning",    d: "A flexible nutrition framework designed around your lifestyle, social commitments and performance requirements.",             tag: "Ongoing" },
-  { t: "Weekly Check-ins",      d: "A structured Sunday review of photos, measurements and progress — with an updated plan in your inbox each Monday morning.",  tag: "Weekly" },
-  { t: "Direct Messaging",      d: "Direct access between sessions for guidance, form checks and accountability when you need it most.",                         tag: "Always" },
-  { t: "Realistic Timeframes",  d: "Honest, transparent timelines based on your starting point and goals — no inflated promises or quick-fix marketing.",        tag: "From Day 1" },
+  { t: "In-Depth Onboarding",              tag: "WEEK 0",
+    d: "Before a single workout is written, we get on a call. Your goals, your lifestyle, your training history — everything gets mapped out so your program is built around your life from day one." },
+  { t: "Your Aesthetic Physique Blueprint", tag: "ONGOING",
+    d: "A personalised program built around your fitness level, schedule and lifestyle — designed to be completed in 45 mins to an hour, so you're not stuck in the gym all day. Delivered through Everfit so your workouts, progress and adjustments are always in one place. It evolves as you do." },
+  { t: "Nutrition Coaching",               tag: "ONGOING",
+    d: "No rigid meal plans. You'll get your personal calorie targets and macros, plus the knowledge to hit them flexibly — so you can still go out with mates, enjoy the foods you love, and wake up the next day on track. Getting lean doesn't mean missing out on life." },
+  { t: "Weekly 1:1 Check-In Calls",        tag: "WEEKLY",
+    d: "A real call, every week, scheduled around you. I review your progress, we make adjustments, and keep the momentum going. This is where the transformation actually happens." },
+  { t: "Direct Messaging",                 tag: "ALWAYS",
+    d: "Got a question between calls? Stuck on a meal? Need a push? Reach out and get a real response fast — I'm always in your corner, not just on call days." },
+  { t: "Real Accountability. No Excuses.", tag: "FROM DAY 1",
+    d: "Progress takes honesty. If you're slipping I'll tell you straight — because I actually care about where you end up. We're in this together and I won't let you settle for less than your best." },
 ];
 
 const STATS = [
@@ -379,8 +385,8 @@ export default function HomePage() {
                 [02] — THE PROGRAM
               </motion.div>
               <motion.h2 variants={fadeUp} style={{ fontFamily: display, fontSize: 104, letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
-                1:1 COACHING<br />
-                <span style={{ color: LIGHT }}>BUILT AROUND YOU.</span>
+                THE BLUEPRINT TO<br />
+                <span style={{ color: LIGHT }}>YOUR PEAK.</span>
               </motion.h2>
             </div>
             <motion.div
@@ -393,12 +399,12 @@ export default function HomePage() {
 
           <motion.div
             variants={stagger}
-            style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}
+            className="program-grid"
           >
             {PROGRAM_FEATURES.map((c, i) => (
               <motion.div key={i} variants={fadeUp} style={{
-                background: CREAM, color: INK, padding: "28px 26px 32px", borderRadius: 2,
-                border: `1.5px solid ${CREAM}`, position: "relative", minHeight: 220,
+                background: CREAM, color: INK, padding: "28px 26px 24px", borderRadius: 2,
+                border: `1.5px solid ${CREAM}`, position: "relative",
               }}>
                 <div style={{
                   position: "absolute", top: -11, right: 20, background: MID, color: CREAM,
@@ -406,8 +412,8 @@ export default function HomePage() {
                 }}>{c.tag}</div>
                 <div style={{ fontFamily: display, fontSize: 28, letterSpacing: 1, marginBottom: 12 }}>{c.t}</div>
                 <div style={{ fontSize: 14, color: SUB, lineHeight: 1.55 }}>{c.d}</div>
-                <div style={{ position: "absolute", bottom: 20, right: 20, fontFamily: mono, fontSize: 12, color: DEEP }}>
-                  0{i + 1}/06
+                <div style={{ marginTop: 20, display: "flex", justifyContent: "flex-end" }}>
+                  <div style={{ fontFamily: mono, fontSize: 12, color: DEEP }}>0{i + 1}/06</div>
                 </div>
               </motion.div>
             ))}
