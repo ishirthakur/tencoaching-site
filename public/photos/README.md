@@ -4,9 +4,10 @@ Drop all client and coach photos here. Filenames must match exactly as listed be
 
 | Filename | Description |
 |---|---|
-| `jerome-before-after.jpg` | Jerome's before/after — front relaxed comparison (used in Results section) |
-| `ben-before-after.jpg` | Ben's before/after (add when ready) |
-| `phil-before-after.jpg` | Phil's before/after (add when ready) |
+| `tenhang-client-jerome.jpg` | Jerome's photo — [03] CLIENT RESULTS · card 1 (full testimonial card) |
+| `client-ben.jpg` | Ben's photo — [03] CLIENT RESULTS · card 2 (replaces COMING SOON when ready) |
+| `client-philip.jpg` | Philip's photo — [03] CLIENT RESULTS · card 3 (replaces COMING SOON when ready) |
+| `client-raydel.jpg` | Raydel's photo — [03] CLIENT RESULTS · card 4 (replaces COMING SOON when ready) |
 | `tenhang-coach-portrait.jpg` | Coach portrait (not used yet — reserve for future) |
 | `tenhang-japan-travel.jpg` | Japan travel lifestyle shot of Tenhang — NOT a physique photo. Used in [04] — ABOUT THE COACH section (left column photo placeholder) |
 | `tenhang-travel-01.jpg` | Travel photo 1 — [05] GALLERY · polaroid 1 · caption: ON THE ROAD |
@@ -22,7 +23,7 @@ Drop all client and coach photos here. Filenames must match exactly as listed be
 
 - JPG preferred, PNG accepted
 - Minimum 800px on shortest side
-- Portrait orientation preferred for before/after cards
+- Portrait orientation preferred for client result cards
 
 ## How it works
 

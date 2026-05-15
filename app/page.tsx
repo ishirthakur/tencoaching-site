@@ -94,11 +94,11 @@ function Placeholder({ label = "", style = {}, bg, fg, text, seed = 0 }: Placeho
 
 // ── Client photo component ────────────────────────────────────────────────
 
-function ClientPhoto({ src, label }: { src: string; label: string }) {
+function ClientPhoto({ src, label, minHeight = 480 }: { src: string; label: string; minHeight?: number }) {
   const [failed, setFailed] = useState(false);
   return (
     <div style={{
-      position: "relative", background: INK, width: "100%", height: "100%", minHeight: 480,
+      position: "relative", background: INK, width: "100%", height: "100%", minHeight,
       display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden",
     }}>
       <Image src="/tc-logo-white.png" alt="" width={120} height={120}
@@ -401,7 +401,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.35 }}
-              style={{ position: "absolute", top: 0, left: 0 }}
+              style={{ position: "absolute", top: 0, left: 0, zIndex: 1 }}
             >
               <div style={{
                 transform: "rotate(-4deg)", background: CREAM, padding: 14,
@@ -416,7 +416,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.48 }}
-              style={{ position: "absolute", top: 80, right: 0 }}
+              style={{ position: "absolute", top: 80, right: 0, zIndex: 3 }}
             >
               <div style={{
                 transform: "rotate(5deg)", background: CREAM, padding: 12,
@@ -431,7 +431,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              style={{ position: "absolute", bottom: 0, left: 60 }}
+              style={{ position: "absolute", bottom: 0, left: 60, zIndex: 2 }}
             >
               <div style={{
                 transform: "rotate(-2deg)", background: CREAM, padding: 12,
@@ -534,40 +534,81 @@ export default function HomePage() {
             </h2>
           </motion.div>
 
-          <div className="results-wrapper">
-            <motion.div variants={fadeUp} className="results-card" style={{
-              border: `1.5px solid ${INK}`, borderRadius: 2,
-              overflow: "hidden", boxShadow: `5px 5px 0 ${INK}`,
-            }}>
-              {/* Left — photo */}
-              <ClientPhoto src="/photos/jerome-before-after.jpg" label="BEFORE → AFTER · JEROME" />
+          <motion.div variants={stagger} className="results-grid">
 
-              {/* Right — content */}
-              <div style={{ padding: "40px 36px", display: "flex", flexDirection: "column", gap: 28, background: CREAM, color: INK }}>
-                <div style={{ display: "flex", gap: 32 }}>
-                  <div>
-                    <div style={{ fontFamily: display, fontSize: 40, letterSpacing: 1, lineHeight: 1 }}>72KG → 63KG</div>
-                    <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: 1.5, color: SUB, textTransform: "uppercase", marginTop: 4 }}>Body Weight</div>
-                  </div>
-                  <div style={{ borderLeft: `1.5px solid ${BORDER}`, paddingLeft: 32 }}>
-                    <div style={{ fontFamily: display, fontSize: 40, letterSpacing: 1, lineHeight: 1 }}>24</div>
-                    <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: 1.5, color: SUB, textTransform: "uppercase", marginTop: 4 }}>Weeks</div>
-                  </div>
+            {/* JEROME */}
+            <motion.div variants={fadeUp} className="results-card">
+              <ClientPhoto src="/photos/tenhang-client-jerome.jpg" label="BEFORE → AFTER · JEROME" minHeight={340} />
+              <div style={{ padding: "28px 24px", display: "flex", flexDirection: "column", gap: 18, background: CREAM, color: INK }}>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: INK, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>72KG → 63KG</span>
+                  <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: DEEP, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>24 WEEKS</span>
                 </div>
-
-                <div style={{ borderTop: `1px solid ${BORDER}` }} />
-
-                <div style={{ fontSize: 16, lineHeight: 1.8, color: INK, fontStyle: "italic", flex: 1 }}>
+                <div style={{ fontSize: 13, lineHeight: 1.75, color: INK, fontStyle: "italic", flex: 1 }}>
                   &ldquo;I was in a rough place, so stressed with work, just let myself go, barely any exercise, eating whatever I wanted. Too many bad habits for a long period made me so unhappy, I knew something had to change. Being coached was great. I got given a workout routine catered to my overall end goal, nutritional advice, and we had a 1 to 1 call every week we would discuss how the weeks gone — what I&apos;d done well, what I need to improve on. Having a coach gives me someone who can hold me accountable on the days I don&apos;t feel like doing shit. The results have been crazy. From how I looked when I started to how I look now, is insane. I feel bigger, less stressed and more confident. It&apos;s not just how I look but it&apos;s also how much I&apos;ve learnt about health and fitness. Knowledge that will stay with me forever.&rdquo;
                 </div>
-
                 <div>
-                  <div style={{ fontFamily: display, fontSize: 32, letterSpacing: 1 }}>JEROME</div>
+                  <div style={{ fontFamily: display, fontSize: 28, letterSpacing: 1 }}>JEROME</div>
                   <div style={{ fontFamily: mono, fontSize: 11, color: SUB, letterSpacing: 1 }}>72kg → 63kg · 24 weeks</div>
                 </div>
               </div>
             </motion.div>
-          </div>
+
+            {/* BEN — placeholder */}
+            <motion.div variants={fadeUp} className="results-card">
+              <ClientPhoto src="/photos/client-ben.jpg" label="CLIENT · BEN" minHeight={340} />
+              <div style={{ padding: "28px 24px", display: "flex", flexDirection: "column", gap: 18, background: CREAM, color: INK }}>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: INK, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>COMING SOON</span>
+                  <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: DEEP, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>WEEKS TBD</span>
+                </div>
+                <div style={{ fontSize: 13, lineHeight: 1.75, color: INK, fontStyle: "italic", flex: 1 }}>
+                  &ldquo;Transformation in progress.&rdquo;
+                </div>
+                <div>
+                  <div style={{ fontFamily: display, fontSize: 28, letterSpacing: 1 }}>BEN</div>
+                  <div style={{ fontFamily: mono, fontSize: 11, color: SUB, letterSpacing: 1 }}>IN PROGRESS</div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* PHILIP — placeholder */}
+            <motion.div variants={fadeUp} className="results-card">
+              <ClientPhoto src="/photos/client-philip.jpg" label="CLIENT · PHILIP" minHeight={340} />
+              <div style={{ padding: "28px 24px", display: "flex", flexDirection: "column", gap: 18, background: CREAM, color: INK }}>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: INK, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>COMING SOON</span>
+                  <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: DEEP, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>WEEKS TBD</span>
+                </div>
+                <div style={{ fontSize: 13, lineHeight: 1.75, color: INK, fontStyle: "italic", flex: 1 }}>
+                  &ldquo;Transformation in progress.&rdquo;
+                </div>
+                <div>
+                  <div style={{ fontFamily: display, fontSize: 28, letterSpacing: 1 }}>PHILIP</div>
+                  <div style={{ fontFamily: mono, fontSize: 11, color: SUB, letterSpacing: 1 }}>IN PROGRESS</div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* RAYDEL — placeholder */}
+            <motion.div variants={fadeUp} className="results-card">
+              <ClientPhoto src="/photos/client-raydel.jpg" label="CLIENT · RAYDEL" minHeight={340} />
+              <div style={{ padding: "28px 24px", display: "flex", flexDirection: "column", gap: 18, background: CREAM, color: INK }}>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: INK, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>COMING SOON</span>
+                  <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: DEEP, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>WEEKS TBD</span>
+                </div>
+                <div style={{ fontSize: 13, lineHeight: 1.75, color: INK, fontStyle: "italic", flex: 1 }}>
+                  &ldquo;Transformation in progress.&rdquo;
+                </div>
+                <div>
+                  <div style={{ fontFamily: display, fontSize: 28, letterSpacing: 1 }}>RAYDEL</div>
+                  <div style={{ fontFamily: mono, fontSize: 11, color: SUB, letterSpacing: 1 }}>IN PROGRESS</div>
+                </div>
+              </div>
+            </motion.div>
+
+          </motion.div>
         </motion.div>
       </section>
 

@@ -14,7 +14,14 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { margin: 0; padding: 0; background: #F5EDD8; }
+html {
+  margin: 0;
+  padding: 0;
+  background: #F5EDD8;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar { display: none; }
 
 body {
   margin: 0;
@@ -26,7 +33,10 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+body::-webkit-scrollbar { display: none; }
 
 a { -webkit-tap-highlight-color: transparent; }
 
@@ -50,21 +60,45 @@ a { -webkit-tap-highlight-color: transparent; }
   }
 }
 
-.results-wrapper {
-  max-width: 70%;
-  margin: 0 auto;
+/* Client Results 2×2 grid */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
 }
 
 .results-card {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
+  border: 1.5px solid #2A2A28;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 5px 5px 0 #2A2A28;
 }
 
-@media (max-width: 600px) {
-  .results-wrapper {
-    max-width: 100%;
+@media (max-width: 768px) {
+  .results-grid {
+    grid-template-columns: 1fr;
   }
   .results-card {
     grid-template-columns: 1fr;
   }
+}
+
+/* Modal utilities */
+.modal-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.modal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-close {
+  color: rgba(245, 237, 216, 0.6);
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.modal-close:hover {
+  color: #5C7A4F;
+  border-color: #5C7A4F !important;
 }
