@@ -229,10 +229,11 @@ export default function HomePage() {
               fontFamily: mono, textTransform: "uppercase", letterSpacing: 0.5,
             }}>{l}</a>
           ))}
-          <button onClick={onBook} style={{
+          <a href="#book" style={{
             background: INK, color: CREAM, border: "none", padding: "11px 20px", borderRadius: 2,
             fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: mono, letterSpacing: 1, textTransform: "uppercase",
-          }}>Book a call ↗</button>
+            textDecoration: "none", display: "inline-block",
+          }}>Book a call ↗</a>
         </div>
       </nav>
 
@@ -680,6 +681,7 @@ export default function HomePage() {
 
       {/* ── FINAL CTA ───────────────────────────────────────────────────── */}
       <motion.section
+        id="book"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-80px" }}
@@ -711,24 +713,37 @@ export default function HomePage() {
       <footer style={{ padding: 40, background: INK, color: CREAM }}>
         <div style={{ marginBottom: 32, paddingBottom: 32, borderBottom: "1px solid rgba(245,237,216,0.15)" }}>
           <Logo src="/tc-logo-white.png" size={160} invert withWordmark wordmarkSize={32} />
-          <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: 1, opacity: 0.6, marginTop: 16 }}>
-            SYDNEY · AUSTRALIA · EST. 2024
-          </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40 }}>
           <div>
             <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, opacity: 0.5, marginBottom: 10, textTransform: "uppercase" }}>Social</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 14 }}>
-              <a href="#" style={{ color: CREAM, textDecoration: "none" }}>@tencoaching · Instagram ↗</a>
-              <a href="#" style={{ color: CREAM, textDecoration: "none" }}>@tencoaching · TikTok ↗</a>
+              <a href="https://instagram.com/tensfit_" style={{ color: CREAM, textDecoration: "none" }}>@tensfit_ · Instagram ↗</a>
+              <a href="https://tiktok.com/@tensfit_" style={{ color: CREAM, textDecoration: "none" }}>@tensfit_ · TikTok ↗</a>
             </div>
           </div>
           <div>
             <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, opacity: 0.5, marginBottom: 10, textTransform: "uppercase" }}>Contact</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 14 }}>
-              <a href="#" style={{ color: CREAM, textDecoration: "none" }}>hello@tencoaching.com.au</a>
-              <a onClick={onBook} style={{ color: LIGHT, cursor: "pointer", textDecoration: "none" }}>Book a call →</a>
+              <a href="mailto:hello@tencoaching.com.au" style={{ color: CREAM, textDecoration: "none" }}>hello@tencoaching.com.au</a>
             </div>
+          </div>
+        </div>
+        <div style={{ marginTop: 40, paddingTop: 32, borderTop: "1px solid rgba(245,237,216,0.15)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
+          <div style={{ fontFamily: display, fontSize: 36, letterSpacing: 3, color: DEEP }}>
+            SOAR BEYOND LIMITS.
+          </div>
+          <div style={{ display: "flex", gap: 12 }}>
+            <a href="#book" style={{
+              background: CREAM, color: INK, padding: "12px 20px", border: `1.5px solid ${CREAM}`,
+              fontFamily: mono, fontSize: 12, letterSpacing: 1, textTransform: "uppercase",
+              textDecoration: "none", fontWeight: 700,
+            }}>Book a discovery call ↗</a>
+            <a href="https://instagram.com/tensfit_" style={{
+              background: "transparent", color: CREAM, padding: "12px 20px", border: `1.5px solid rgba(245,237,216,0.4)`,
+              fontFamily: mono, fontSize: 12, letterSpacing: 1, textTransform: "uppercase",
+              textDecoration: "none", fontWeight: 700,
+            }}>DM on Instagram ↗</a>
           </div>
         </div>
       </footer>
