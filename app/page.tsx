@@ -234,12 +234,18 @@ const POSTS = [
 ];
 
 const FAQS = [
-  { q: "How long is the coaching commitment?", a: "Coaching runs on a rolling weekly basis. There's no minimum lock-in beyond the first 4 weeks (which I ask for so we have enough signal to actually adjust the plan). Most clients stay 4–12 months." },
-  { q: "Do you train people in person?",       a: "No — coaching is fully online. You train at your own gym on your own schedule. I provide programming, video form-checks, weekly review and direct messaging access." },
-  { q: "What does it cost?",                   a: "Coaching is $145/week, billed weekly. Pricing is the same whether you're a beginner or a competitive lifter; what changes is what the program looks like." },
-  { q: "Is this only for men?",                a: "No. The roster is roughly half-and-half. Programming, nutrition and check-ins are tailored individually — there is no template based on gender." },
-  { q: "I travel a lot. Will that be a problem?", a: "It's not. Travel weeks are common across the roster. Programs are written to flex around hotel gyms, time zones and weeks where training simply isn't the priority." },
-  { q: "How fast will I see results?",         a: "Visible changes typically arrive in 8–12 weeks, with meaningful body composition shifts at 4–6 months. Anyone promising faster is selling you a haircut, not a transformation." },
+  { q: "How long until I see results?",
+    a: "Give it 12 weeks minimum — that's where the real changes start showing. 16 weeks is where results get seriously impressive. Everyone's starting point is different so timelines vary, but if you show up consistently and follow the program the results will come. That's not a maybe — that's a guarantee." },
+  { q: "What if my schedule changes week to week?",
+    a: "That's exactly what the program is built for. Life isn't predictable and neither is a good coaching program. We plan ahead, adapt when things come up, and always have strategies in place to keep you on track no matter what the week throws at you. An unpredictable week is never an excuse to lose progress." },
+  { q: "Can I still travel, socialise, and enjoy life during coaching?",
+    a: "Of course. The whole philosophy behind Ten Coaching is that getting lean doesn't mean missing out on life. Social events, holidays, weekends out with mates — all of it is part of the plan. We work around your life, not against it. Enjoy the moments that matter and we'll always get back on track together." },
+  { q: "How quickly will I get my program after signing up?",
+    a: "Fast. After your consultation call your personalised program is usually ready within 2-3 days. No waiting weeks to get started — we hit the ground running." },
+  { q: "What is included in weekly coaching?",
+    a: "Every week you get a 1:1 check-in call scheduled around you, direct messaging access for questions and support anytime, and program adjustments based on your progress. Everything is tracked and managed through Everfit so your workouts, nutrition and progress are always in one place." },
+  { q: "What happens after I reach my goal?",
+    a: "Once you hit your goal the work doesn't stop there — that's actually where the most important part begins. The whole point of how I coach nutrition is to build habits and knowledge that stick with you for life. You'll understand your body, know how to eat flexibly, and be able to sustain your results long after the program ends. I will show you how to sustain it — because the goal was never just to get you lean once. It's to keep you there." },
 ];
 
 const PROGRAM_FEATURES = [
@@ -756,17 +762,22 @@ export default function HomePage() {
           [08] — 4 SPOTS · MAY 2026 INTAKE
         </motion.div>
         <motion.h2 variants={fadeUp} style={{ fontFamily: display, fontSize: 160, letterSpacing: 2, lineHeight: 0.88, margin: 0 }}>
-          LET&apos;S <span style={{ fontStyle: "italic" }}>BUILD</span><br />YOUR BEST SHAPE.
+          YOUR ARC<br /><span style={{ color: INK, fontStyle: "italic" }}>STARTS NOW.</span>
         </motion.h2>
         <motion.p variants={fadeUp} style={{ fontSize: 19, maxWidth: 560, margin: "32px auto 40px", lineHeight: 1.5 }}>
-          Book a 30-minute discovery call. We&apos;ll discuss your goals, assess whether coaching is the right fit, and outline what your next 12 weeks could realistically look like.
+          Book a free discovery call and let&apos;s talk about where you are, where you want to be, and how to get there. No pressure, no pitch — just an honest conversation about your goals and whether this is the right move for you.
         </motion.p>
-        <motion.div variants={fadeUp}>
-          <button onClick={onBook} style={{
+        <motion.div variants={fadeUp} style={{ display: "flex", flexWrap: "wrap", gap: 16, justifyContent: "center" }}>
+          <a href="#book" style={{
             background: INK, color: CREAM, border: `1.5px solid ${INK}`, padding: "20px 36px",
-            borderRadius: 2, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: mono, letterSpacing: 1.5, textTransform: "uppercase",
-            boxShadow: `5px 5px 0 ${CREAM}`,
-          }}>Book your call ↗</button>
+            borderRadius: 2, fontSize: 15, fontWeight: 700, fontFamily: mono, letterSpacing: 1.5, textTransform: "uppercase",
+            boxShadow: `5px 5px 0 ${CREAM}`, textDecoration: "none", display: "inline-block",
+          }}>Book a Discovery Call ↗</a>
+          <a href="https://instagram.com/tensfit_" target="_blank" rel="noopener noreferrer" style={{
+            background: "transparent", color: CREAM, border: `1.5px solid ${CREAM}`, padding: "20px 36px",
+            borderRadius: 2, fontSize: 15, fontWeight: 700, fontFamily: mono, letterSpacing: 1.5, textTransform: "uppercase",
+            textDecoration: "none", display: "inline-block",
+          }}>DM on Instagram ↗</a>
         </motion.div>
       </motion.section>
 
