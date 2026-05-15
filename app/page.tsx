@@ -119,6 +119,23 @@ function ClientPhoto({ src, label }: { src: string; label: string }) {
   );
 }
 
+// ── Gallery photo component ───────────────────────────────────────────────
+
+function GalleryPhoto({ src, label }: { src: string; label: string }) {
+  const [failed, setFailed] = useState(false);
+  return (
+    <div style={{
+      position: "relative", width: 200, height: 220, background: INK,
+      display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden",
+    }}>
+      <Image src="/tc-logo-white.png" alt="" width={64} height={64} style={{ opacity: 0.3, flexShrink: 0 }} />
+      {!failed && (
+        <Image src={src} alt={label} fill style={{ objectFit: "cover" }} onError={() => setFailed(true)} />
+      )}
+    </div>
+  );
+}
+
 // ── Logo components ───────────────────────────────────────────────────────
 
 function LogoMark({ size = 56, invert = false }: { size?: number; invert?: boolean }) {
@@ -158,14 +175,14 @@ function Logo({
 
 
 const GALLERY = [
-  { img: "__ph__gallery-1", caption: "squat day · sydney", top: 0,   left: 20,  rotate: -3 },
-  { img: "__ph__gallery-2", caption: "pull session",       top: 30,  left: 260, rotate: 4  },
-  { img: "__ph__gallery-3", caption: "check-in photos",    top: 10,  left: 510, rotate: -2 },
-  { img: "__ph__gallery-4", caption: "on the floor",       top: 60,  left: 770, rotate: 5  },
-  { img: "__ph__gallery-5", caption: "meal · week 8",      top: 290, left: 80,  rotate: 3  },
-  { img: "__ph__gallery-6", caption: "progress · 12 wk",   top: 310, left: 340, rotate: -4 },
-  { img: "__ph__gallery-7", caption: "recovery day",       top: 290, left: 610, rotate: 2  },
-  { img: "__ph__gallery-8", caption: "before the lift",    top: 320, left: 850, rotate: -3 },
+  { img: "/photos/tenhang-travel-01.jpg",     caption: "ON THE ROAD",          top: 0,   left: 20,  rotate: -3 },
+  { img: "/photos/tenhang-travel-02.jpg",     caption: "OFF GRID",             top: 30,  left: 260, rotate: 4  },
+  { img: "/photos/tenhang-travel-03.jpg",     caption: "SOMEWHERE NEW",        top: 10,  left: 510, rotate: -2 },
+  { img: "/photos/tenhang-food-01.jpg",       caption: "THE FOODIE",           top: 60,  left: 770, rotate: 5  },
+  { img: "/photos/tenhang-food-02.jpg",       caption: "NIGHT OUT",            top: 290, left: 80,  rotate: 3  },
+  { img: "/photos/tenhang-basketball-01.jpg", caption: "PICKUP · WESTERN SYD", top: 310, left: 340, rotate: -4 },
+  { img: "/photos/tenhang-basketball-02.jpg", caption: "ON THE COURT",         top: 290, left: 610, rotate: 2  },
+  { img: "/photos/tenhang-gym-01.jpg",        caption: "THE FLOOR",            top: 320, left: 850, rotate: -3 },
 ];
 
 const POSTS = [
@@ -537,7 +554,7 @@ export default function HomePage() {
           <motion.div variants={fadeUp} style={{ marginBottom: 56 }}>
             <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: 2, marginBottom: 16, color: DEEP }}>[05] — GALLERY</div>
             <h2 style={{ fontFamily: display, fontSize: 96, letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
-              FROM THE <span style={{ color: DEEP, fontStyle: "italic" }}>FLOOR.</span>
+              THE LIFE THAT DRIVES THE <span style={{ color: DEEP, fontStyle: "italic" }}>WORK.</span>
             </h2>
           </motion.div>
         </motion.div>
@@ -556,7 +573,7 @@ export default function HomePage() {
                 transform: `rotate(${p.rotate}deg)`, background: CREAM, padding: 12,
                 boxShadow: `0 8px 24px rgba(0,0,0,0.18), 3px 3px 0 ${INK}`, border: `1px solid ${BORDER}`,
               }}>
-                <Placeholder label={p.caption} style={{ width: 200, height: 220 }} seed={50 + i} />
+                <GalleryPhoto src={p.img} label={p.caption} />
                 <div style={{ fontFamily: mono, fontSize: 11, textAlign: "center", marginTop: 8, color: INK, letterSpacing: 1 }}>
                   {p.caption.toUpperCase()}
                 </div>
