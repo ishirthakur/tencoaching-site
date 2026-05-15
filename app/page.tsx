@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 
@@ -186,9 +186,51 @@ const GALLERY = [
 ];
 
 const POSTS = [
-  { title: "Why I stopped writing PDFs",   excerpt: "A static training plan is a snapshot of who you were the day you wrote it. Here's what I do instead.",                                                                          cat: "Method",   date: "Apr 12", readTime: "6 min" },
-  { title: "Eating around a Sydney week",  excerpt: "How to keep nutrition adherent when your week includes work dinners, Friday drinks and a weekend at the beach.",                                                                    cat: "Nutrition", date: "Mar 28", readTime: "8 min" },
-  { title: "The case for slower fat loss", excerpt: "Most people don't need an aggressive cut. They need a sustainable one. The maths, and what it looks like in practice.", cat: "Fat Loss",  date: "Mar 09", readTime: "5 min" },
+  {
+    cat: "ORIGIN",
+    title: "THE SKINNY PHASE — WHERE IT ALL STARTED",
+    preview: "50kg, no plan, no clue. Every arc has a beginning — this is mine.",
+    body: [
+      "Every arc has a beginning. Mine started at 15, 50kg, and absolutely clueless.",
+      "If you saw me back then you wouldn't have guessed I'd end up coaching people on their physique. I was the skinny kid — and I mean properly skinny. The kind where people don't hesitate to remind you. \"You need to eat more\" was something I heard constantly and after a while it started getting to me. I'd look around and think — would I ever actually look like I lift?",
+      "The funny thing is I wasn't even thinking about any of that at the time. I was just living. Basketball every day after school, going home and smashing a bowl of cereal, some bread, maybe rice if mum cooked — and calling it a meal. I had no idea what protein was, no idea what I needed to eat to build muscle. I was just a kid who loved sport and happened to be really, really skinny.",
+      "The gym came into the picture because of my brother. We always did everything together so when he suggested we sign up it was a no brainer. But I won't pretend I walked in there with some big vision or goal. I was just there to have fun and figure out what all the machines did. Walking in and seeing everyone around me lifting heavy while I could barely manage the bar was intimidating — it was the one place in my fitness life where I genuinely felt like I didn't belong.",
+      "But here's the thing about me — I've always been competitive. Always strived to be better at everything I put my hands on. So yeah I was intimidated, but that feeling didn't last long. Pretty quickly that intimidation flipped into something else entirely. I looked around at the guys lifting heavy, the ones who looked big and strong, and instead of shrinking I thought — I want to get to that level. Actually, I want to surpass it.",
+      "That competitive fire was always there whether it was on the basketball court or in the classroom. The gym just became another arena to prove something — mostly to myself.",
+      "I was still more focused on basketball than anything else at this point. Still short, still skinny, still eating cereal for dinner. But somewhere in the back of my mind a thought had planted itself — one day I want to look lean and aesthetic. I just had no idea when that day would come.",
+      "That's where the arc begins.",
+    ],
+  },
+  {
+    cat: "STUCK",
+    title: "STUCK BEING MID",
+    preview: "Gained the weight, stopped progressing in lifts. Stuck being mid and didn't even know why.",
+    body: [
+      "There's a phase nobody talks about in fitness. You're not a beginner anymore. You're not where you want to be either. You're just... stuck. That was me from 17 to 21 and honestly it bled into every part of my life.",
+      "By this point I'd naturally climbed from 60kg up to around 72-73kg. I wasn't fat — nobody was pulling me aside to say anything — but I knew. I could feel it. Sluggish on the court, soft in the mirror, going through the motions in the gym. I looked normal to everyone else but to me I knew I was capable of so much more and that gap between where I was and where I wanted to be started eating at me.",
+      "The gym was consistent enough but I was still just winging it. No tracking, no real structure, just showing up and lifting without any real direction. I was getting stronger sure, but the progress had flatlined. Same weight on the bar week after week. Same body in the mirror month after month. Boring doesn't even cover it.",
+      "Then life got hard. Outside pressures started building up and for a period I felt like I was falling behind in every area except one — the gym. So I leaned into it completely.",
+      "I started going to the gym five times a week. Not because I had a plan — because I needed somewhere to put everything I was feeling. The weights became my outlet, my therapy, my proof to myself that I wasn't as stuck as I felt. I was building muscle, getting stronger, showing up every single day. But I still wasn't tracking my nutrition and the progress in the mirror still wasn't matching the effort I was putting in.",
+      "And that's where the frustration really set in. I was doing everything I thought I was supposed to do. Showing up consistently, training hard, not skipping sessions. But the body I wanted? Still nowhere to be seen. I'd look in the mirror after months of grinding and feel nothing had changed. How are you supposed to stay motivated when the work doesn't seem to be working? I started questioning everything — my training, my genetics, whether this was even possible for someone like me.",
+      "I was consistent. I was working harder than ever. And I was still stuck.",
+      "Something had to change.",
+    ],
+  },
+  {
+    cat: "PEAK",
+    title: "PEAK UNLOCKED — WHEN IT ALL CLICKED",
+    preview: "The moment it all clicked. From mid to peak — and exactly how I got there.",
+    body: [
+      "Something had to change. So I changed the one thing I hadn't tried yet.",
+      "No grand plan. No coach. Just hit a wall and decided to finally get serious about the one thing I'd been ignoring the whole time — my nutrition. I was already active, already consistent in the gym, already playing ball twice a week and hitting 10k steps most days. My body was ready. It was just waiting for the right fuel.",
+      "The results came faster than I expected. Six to eight weeks in I was finally seeing my abs come through for the first time. But honestly the physical changes weren't even the most surprising part. Everything else started working better too. My sleep improved dramatically. My workouts felt sharper. My mood lifted. I was eating mostly whole foods and my body was just functioning the way it was always supposed to — and I hadn't felt that way in years.",
+      "72kg down to 62kg. Abs. Striations. A version of myself in the mirror I'd been chasing since I was that skinny 15 year old walking into the gym for the first time not knowing where to start.",
+      "It sounds simple when I write it out like that. Get serious about nutrition, eat whole foods, stay consistent. But the mental shift that came with it was anything but simple. For the first time in my life I felt sharp. Confident. Like I was finally operating at the level I always knew I was capable of. The gym sessions hit different. The ball games hit different. Everything hit different when your body is actually fuelled the way it should be.",
+      "Then I went overseas for a month, enjoyed every meal, lived my best life — and came back and did it again. Cut again, abs back, leaner than ever. That was the moment I knew it wasn't luck. It was a system. And it worked every single time.",
+      "That's what I want for every person I coach. Not just the abs — the feeling. The clarity. The confidence that comes from proving to yourself that you can do something you didn't think was possible.",
+      "The arc is never finished. But I've got the system, the results, and the drive to help you write yours.",
+    ],
+  },
 ];
 
 const FAQS = [
@@ -248,6 +290,21 @@ const staggerFast: Variants = {
 
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState(-1);
+  const [activePost, setActivePost] = useState<number | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (activePost === null) {
+      document.body.style.overflow = "";
+      return;
+    }
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setActivePost(null); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [activePost]);
+
   const onBook = () => window.alert("Discovery call booking → Calendly placeholder");
 
   return (
@@ -591,16 +648,11 @@ export default function HomePage() {
           viewport={{ once: true, margin: "-80px" }}
           variants={stagger}
         >
-          <motion.div variants={fadeUp} style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 56, gap: 40 }}>
-            <div>
-              <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: 2, marginBottom: 16, color: DEEP }}>[06] — JOURNAL</div>
-              <h2 style={{ fontFamily: display, fontSize: 96, letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
-                FIELD <span style={{ color: DEEP, fontStyle: "italic" }}>NOTES.</span>
-              </h2>
-            </div>
-            <a href="#" style={{ fontFamily: mono, fontSize: 12, letterSpacing: 1.5, color: INK, textDecoration: "underline", textUnderlineOffset: 4 }}>
-              READ ALL ↗
-            </a>
+          <motion.div variants={fadeUp} style={{ marginBottom: 56 }}>
+            <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: 2, marginBottom: 16, color: DEEP }}>[06] — MY TRAINING ARC</div>
+            <h2 style={{ fontFamily: display, fontSize: 96, letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
+              MY TRAINING <span style={{ color: DEEP, fontStyle: "italic" }}>ARC.</span>
+            </h2>
           </motion.div>
 
           <motion.div
@@ -608,20 +660,21 @@ export default function HomePage() {
             style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}
           >
             {POSTS.map((p, i) => (
-              <motion.article key={i} variants={fadeUp} style={{
-                background: CREAM, border: `1.5px solid ${INK}`, borderRadius: 2,
-                boxShadow: `4px 4px 0 ${INK}`, cursor: "pointer",
-                display: "flex", flexDirection: "column",
-              }}>
+              <motion.article key={i} variants={fadeUp}
+                onClick={() => setActivePost(i)}
+                style={{
+                  background: CREAM, border: `1.5px solid ${INK}`, borderRadius: 2,
+                  boxShadow: `4px 4px 0 ${INK}`, cursor: "pointer",
+                  display: "flex", flexDirection: "column",
+                }}>
                 <Placeholder label={p.title} style={{ width: "100%", height: 200 }}
                   bg={INK} fg={hexToRgba(LIGHT, 0.15)} text={hexToRgba(MID, 0.7)} seed={70 + i} />
                 <div style={{ padding: "22px 22px 24px", flex: 1, display: "flex", flexDirection: "column" }}>
-                  <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
-                    <span style={{ fontFamily: mono, fontSize: 10, background: INK, color: CREAM, padding: "3px 8px", letterSpacing: 1 }}>{p.cat.toUpperCase()}</span>
-                    <span style={{ fontFamily: mono, fontSize: 10, color: SUB, letterSpacing: 1, alignSelf: "center" }}>{p.date} · {p.readTime}</span>
+                  <div style={{ marginBottom: 14 }}>
+                    <span style={{ fontFamily: mono, fontSize: 10, background: INK, color: CREAM, padding: "3px 8px", letterSpacing: 1 }}>{p.cat}</span>
                   </div>
-                  <div style={{ fontFamily: display, fontSize: 26, letterSpacing: 0.5, lineHeight: 1.05, marginBottom: 12 }}>{p.title.toUpperCase()}</div>
-                  <div style={{ fontSize: 14, color: SUB, lineHeight: 1.55, flex: 1 }}>{p.excerpt}</div>
+                  <div style={{ fontFamily: display, fontSize: 26, letterSpacing: 0.5, lineHeight: 1.05, marginBottom: 12 }}>{p.title}</div>
+                  <div style={{ fontSize: 14, color: SUB, lineHeight: 1.55, flex: 1 }}>{p.preview}</div>
                   <div style={{ marginTop: 18, fontFamily: mono, fontSize: 11, color: DEEP, letterSpacing: 1.5 }}>READ POST →</div>
                 </div>
               </motion.article>
@@ -755,6 +808,83 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+
+      {/* ── POST MODAL ──────────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {activePost !== null && (
+          <motion.div
+            key="modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            onClick={() => setActivePost(null)}
+            style={{
+              position: "fixed", inset: 0, zIndex: 1000,
+              background: hexToRgba(INK, 0.88),
+              display: "flex", alignItems: "center", justifyContent: "center",
+              padding: 24,
+            }}
+          >
+            <motion.div
+              key="modal-card"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-title"
+              initial={{ opacity: 0, scale: 0.96, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 12 }}
+              transition={{ duration: 0.2, ease: "easeOut" as const }}
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                background: INK, color: CREAM, borderRadius: 2,
+                maxWidth: 720, width: "100%", maxHeight: "85vh",
+                overflow: "hidden", display: "flex", flexDirection: "column",
+                position: "relative", border: `1px solid rgba(245,237,216,0.12)`,
+              }}
+            >
+              <button
+                ref={closeRef}
+                onClick={() => setActivePost(null)}
+                aria-label="Close post"
+                className="modal-close"
+                style={{
+                  position: "absolute", top: 16, right: 16, zIndex: 3,
+                  width: 44, height: 44,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  background: "none", border: "1px solid rgba(245,237,216,0.15)",
+                  borderRadius: 2, cursor: "pointer",
+                  fontFamily: display, fontSize: 26, lineHeight: 1,
+                }}
+              >×</button>
+
+              <div className="modal-scroll" style={{ overflowY: "auto", padding: "48px 48px 64px", flex: 1 }}>
+                <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: 2, color: DEEP, marginBottom: 16, textTransform: "uppercase" }}>
+                  {POSTS[activePost].cat}
+                </div>
+                <h2 id="modal-title" style={{
+                  fontFamily: display, fontSize: 52, letterSpacing: 1, lineHeight: 0.95,
+                  margin: "0 0 32px", color: CREAM,
+                }}>
+                  {POSTS[activePost].title}
+                </h2>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1.2em", fontSize: 16, lineHeight: 1.75, color: hexToRgba(CREAM, 0.82) }}>
+                  {POSTS[activePost].body.map((para, pi) => (
+                    <p key={pi} style={{ margin: 0 }}>{para}</p>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom fade affordance */}
+              <div style={{
+                position: "absolute", bottom: 0, left: 0, right: 0,
+                height: 70, pointerEvents: "none", zIndex: 2,
+                background: `linear-gradient(to bottom, transparent, ${INK})`,
+              }} />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
