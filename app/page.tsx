@@ -176,10 +176,10 @@ const PROGRAM_FEATURES = [
 ];
 
 const STATS = [
-  { n: "47",  l: "CLIENTS COACHED" },
-  { n: "12W", l: "AVG. FIRST RESULT" },
-  { n: "1:1", l: "TAILORED ONLY" },
-  { n: "24/7",l: "DIRECT SUPPORT" },
+  { n: "9–13KG", l: "AVG. FAT LOST PER CUT" },
+  { n: "12 WKS", l: "TO VISIBLE RESULTS" },
+  { n: "1:1",    l: "TAILORED ONLY" },
+  { n: "24/7",   l: "DIRECT ACCESS" },
 ];
 
 // ── Framer Motion variants ────────────────────────────────────────────────
@@ -237,18 +237,8 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* ── TICKER ──────────────────────────────────────────────────────── */}
-      <div style={{ background: INK, color: CREAM, padding: "8px 0", overflow: "hidden", borderBottom: `1.5px solid ${INK}` }}>
-        <div style={{ whiteSpace: "nowrap", fontFamily: mono, fontSize: 12, letterSpacing: 2, animation: "tens-scroll 60s linear infinite" }}>
-          {Array(6).fill(0).map((_, i) => (
-            <span key={i} style={{ marginRight: 60 }}>
-              ● SYDNEY PHYSIQUE COACHING ● EST. 2024 ● 1:1 ONLY ● TRAIN · EAT · LIVE ● NEXT INTAKE MAY 2026 ● 4 SPOTS AVAILABLE ●
-            </span>
-          ))}
-        </div>
-      </div>
 
-      {/* ── HERO ────────────────────────────────────────────────────────── */}
+{/* ── HERO ────────────────────────────────────────────────────────── */}
       <section style={{ padding: "60px 40px 40px", position: "relative", overflow: "hidden" }}>
         {/* Watermark */}
         <div style={{
@@ -264,23 +254,14 @@ export default function HomePage() {
 
           {/* Left — copy */}
           <div>
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.05 }}
-              style={{ fontFamily: mono, fontSize: 12, letterSpacing: 2, marginBottom: 32, color: DEEP }}
-            >
-              [01] — SYDNEY · EST. 2024
-            </motion.div>
-
             <motion.h1
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" as const }}
               style={{ fontFamily: display, fontSize: 156, lineHeight: 0.88, letterSpacing: 0, margin: 0, color: INK }}
             >
-              BUILD THE <span style={{ color: DEEP, fontStyle: "italic" }}>BODY.</span><br />
-              KEEP THE LIFE.
+              SOAR<br />
+              <span style={{ color: DEEP, fontStyle: "italic" }}>BEYOND LIMITS.</span>
             </motion.h1>
 
             <motion.p
@@ -289,7 +270,7 @@ export default function HomePage() {
               transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" as const }}
               style={{ fontSize: 21, maxWidth: 540, marginTop: 32, color: SUB, lineHeight: 1.45 }}
             >
-              Personalised 1:1 physique coaching for ambitious 18–28-year-olds in Sydney. Structured programming that works around your career, training and life — not in opposition to it.
+              Real 1:1 physique coaching for busy 18–28 year olds. Built around your life — so you can become aesthetic, get lean, get strong, and still show up for everything that matters.
             </motion.p>
 
             <motion.div
@@ -324,7 +305,7 @@ export default function HomePage() {
                 boxShadow: `0 8px 24px rgba(0,0,0,0.15), 3px 3px 0 ${INK}`, border: `1px solid ${BORDER}`,
               }}>
                 <Placeholder label="coach portrait" style={{ width: 220, height: 260 }} seed={1} />
-                <div style={{ fontFamily: mono, fontSize: 11, textAlign: "center", marginTop: 10, color: INK, letterSpacing: 1 }}>YOUR COACH · OSAKA</div>
+                <div style={{ fontFamily: mono, fontSize: 11, textAlign: "center", marginTop: 10, color: INK, letterSpacing: 1 }}>YOUR COACH · PEAK</div>
               </div>
             </motion.div>
 
@@ -339,7 +320,7 @@ export default function HomePage() {
                 boxShadow: `0 8px 24px rgba(0,0,0,0.15), 3px 3px 0 ${INK}`, border: `1px solid ${BORDER}`,
               }}>
                 <Placeholder label="training" style={{ width: 200, height: 260 }} seed={2} />
-                <div style={{ fontFamily: mono, fontSize: 11, textAlign: "center", marginTop: 8, color: INK, letterSpacing: 1 }}>ON THE FLOOR · SYDNEY</div>
+                <div style={{ fontFamily: mono, fontSize: 11, textAlign: "center", marginTop: 8, color: INK, letterSpacing: 1 }}>PHILIPPINES · LIVING PROOF</div>
               </div>
             </motion.div>
 
@@ -354,7 +335,7 @@ export default function HomePage() {
                 boxShadow: `0 8px 24px rgba(0,0,0,0.15), 3px 3px 0 ${INK}`, border: `1px solid ${BORDER}`,
               }}>
                 <Placeholder label="on the court" style={{ width: 240, height: 200 }} seed={3} />
-                <div style={{ fontFamily: mono, fontSize: 11, textAlign: "center", marginTop: 8, color: INK, letterSpacing: 1 }}>WEEK 12 · CLIENT PROGRESS</div>
+                <div style={{ fontFamily: mono, fontSize: 11, textAlign: "center", marginTop: 8, color: INK, letterSpacing: 1 }}>THE FOUNDATION · WESTERN SYD</div>
               </div>
             </motion.div>
           </div>
