@@ -49,3 +49,22 @@ a { -webkit-tap-highlight-color: transparent; }
     grid-template-columns: 1fr;
   }
 }
+
+.results-wrapper {
+  max-width: 70%;
+  margin: 0 auto;
+}
+
+.results-card {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+}
+
+@media (max-width: 600px) {
+  .results-wrapper {
+    max-width: 100%;
+  }
+  .results-card {
+    grid-template-columns: 1fr;
+  }
+}

@@ -92,6 +92,33 @@ function Placeholder({ label = "", style = {}, bg, fg, text, seed = 0 }: Placeho
   );
 }
 
+// ── Client photo component ────────────────────────────────────────────────
+
+function ClientPhoto({ src, label }: { src: string; label: string }) {
+  const [failed, setFailed] = useState(false);
+  return (
+    <div style={{
+      position: "relative", background: INK, width: "100%", height: "100%", minHeight: 480,
+      display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden",
+    }}>
+      <Image src="/tc-logo-white.png" alt="" width={120} height={120}
+        style={{ opacity: 0.35, display: "block", flexShrink: 0 }} />
+      {!failed && (
+        <Image src={src} alt={label} fill
+          style={{ objectFit: "cover" }}
+          onError={() => setFailed(true)} />
+      )}
+      <div style={{
+        position: "absolute", bottom: 0, left: 0, right: 0, padding: "12px 16px",
+        fontFamily: mono, fontSize: 10, letterSpacing: 1.5,
+        color: hexToRgba(CREAM, 0.6), textTransform: "uppercase", zIndex: 2,
+      }}>
+        {label}
+      </div>
+    </div>
+  );
+}
+
 // ── Logo components ───────────────────────────────────────────────────────
 
 function LogoMark({ size = 56, invert = false }: { size?: number; invert?: boolean }) {
@@ -129,16 +156,6 @@ function Logo({
 
 // ── Data ─────────────────────────────────────────────────────────────────
 
-const TESTIMONIALS = [
-  { name: "Marcus L.", age: 24, loc: "Surry Hills", weeks: 16, before: "68KG", after: "76KG", img: "__ph__client-marcus",
-    quote: "I'd been spinning my wheels on free plans for two years. Sixteen weeks in, my training has structure, I'm eating around a real social life, and I look like someone who actually trains." },
-  { name: "Priya K.", age: 27, loc: "Bondi", weeks: 20, before: "64KG", after: "58KG", img: "__ph__client-priya",
-    quote: "I came in expecting another 'lose weight fast' pitch. Instead I got a program built around my hospital shifts. The check-ins kept me honest without making it feel like a second job." },
-  { name: "James W.", age: 22, loc: "Newtown", weeks: 12, before: "72KG", after: "78KG", img: "__ph__client-james",
-    quote: "Form-check messages on Sunday nights changed everything. My bench finally moves. I look forward to Mondays now, which is something I never thought I'd say." },
-  { name: "Sienna R.", age: 26, loc: "Paddington", weeks: 24, before: "70KG", after: "62KG", img: "__ph__client-sienna",
-    quote: "Six months. No crash diet, no 5am cardio. Just a plan that fit my week and someone who actually paid attention. The before/afters undersell how different I feel." },
-];
 
 const GALLERY = [
   { img: "__ph__gallery-1", caption: "squat day · sydney", top: 0,   left: 20,  rotate: -3 },
@@ -432,43 +449,45 @@ export default function HomePage() {
           <motion.div variants={fadeUp} style={{ marginBottom: 64 }}>
             <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: 2, marginBottom: 16, color: DEEP }}>[03] — CLIENT RESULTS</div>
             <h2 style={{ fontFamily: display, fontSize: 104, letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
-              REAL PEOPLE.<br />REAL <span style={{ color: DEEP, fontStyle: "italic" }}>RESULTS.</span>
+              BUILT FROM <span style={{ color: DEEP, fontStyle: "italic" }}>ZERO.</span><br />
+              THE RESULTS DON&apos;T LIE.
             </h2>
           </motion.div>
 
-          <motion.div
-            variants={stagger}
-            style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 32 }}
-          >
-            {TESTIMONIALS.map((tt, i) => (
-              <motion.div key={i} variants={fadeUp} style={{
-                background: CREAM, border: `1.5px solid ${INK}`, borderRadius: 2,
-                display: "grid", gridTemplateColumns: "1fr 1.1fr", overflow: "hidden",
-                boxShadow: `5px 5px 0 ${INK}`,
-              }}>
-                <Placeholder label={tt.name} style={{ width: "100%", height: 340 }} seed={10 + i} />
-                <div style={{ padding: "24px 24px 20px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          <div className="results-wrapper">
+            <motion.div variants={fadeUp} className="results-card" style={{
+              border: `1.5px solid ${INK}`, borderRadius: 2,
+              overflow: "hidden", boxShadow: `5px 5px 0 ${INK}`,
+            }}>
+              {/* Left — photo */}
+              <ClientPhoto src="/photos/jerome-before-after.jpg" label="BEFORE → AFTER · JEROME" />
+
+              {/* Right — content */}
+              <div style={{ padding: "40px 36px", display: "flex", flexDirection: "column", gap: 28, background: CREAM, color: INK }}>
+                <div style={{ display: "flex", gap: 32 }}>
                   <div>
-                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
-                      <span style={{ fontFamily: mono, fontSize: 11, background: INK, color: CREAM, padding: "3px 8px", letterSpacing: 1 }}>
-                        {tt.before} → {tt.after}
-                      </span>
-                      <span style={{ fontFamily: mono, fontSize: 11, background: MID, color: CREAM, padding: "3px 8px", letterSpacing: 1 }}>
-                        {tt.weeks} WEEKS
-                      </span>
-                    </div>
-                    <div style={{ fontSize: 15, lineHeight: 1.6, color: SUB, marginBottom: 20 }}>
-                      &ldquo;{tt.quote}&rdquo;
-                    </div>
+                    <div style={{ fontFamily: display, fontSize: 40, letterSpacing: 1, lineHeight: 1 }}>72KG → 63KG</div>
+                    <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: 1.5, color: SUB, textTransform: "uppercase", marginTop: 4 }}>Body Weight</div>
                   </div>
-                  <div>
-                    <div style={{ fontFamily: display, fontSize: 22, letterSpacing: 1 }}>{tt.name}</div>
-                    <div style={{ fontFamily: mono, fontSize: 11, color: SUB, letterSpacing: 1 }}>{tt.age} · {tt.loc.toUpperCase()}</div>
+                  <div style={{ borderLeft: `1.5px solid ${BORDER}`, paddingLeft: 32 }}>
+                    <div style={{ fontFamily: display, fontSize: 40, letterSpacing: 1, lineHeight: 1 }}>24</div>
+                    <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: 1.5, color: SUB, textTransform: "uppercase", marginTop: 4 }}>Weeks</div>
                   </div>
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
+
+                <div style={{ borderTop: `1px solid ${BORDER}` }} />
+
+                <div style={{ fontSize: 16, lineHeight: 1.8, color: INK, fontStyle: "italic", flex: 1 }}>
+                  &ldquo;I was in a rough place, so stressed with work, just let myself go, barely any exercise, eating whatever I wanted. Too many bad habits for a long period made me so unhappy, I knew something had to change. Being coached was great. I got given a workout routine catered to my overall end goal, nutritional advice, and we had a 1 to 1 call every week we would discuss how the weeks gone — what I&apos;d done well, what I need to improve on. Having a coach gives me someone who can hold me accountable on the days I don&apos;t feel like doing shit. The results have been crazy. From how I looked when I started to how I look now, is insane. I feel bigger, less stressed and more confident. It&apos;s not just how I look but it&apos;s also how much I&apos;ve learnt about health and fitness. Knowledge that will stay with me forever.&rdquo;
+                </div>
+
+                <div>
+                  <div style={{ fontFamily: display, fontSize: 32, letterSpacing: 1 }}>JEROME</div>
+                  <div style={{ fontFamily: mono, fontSize: 11, color: SUB, letterSpacing: 1 }}>72kg → 63kg · 24 weeks</div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
       </section>
 
