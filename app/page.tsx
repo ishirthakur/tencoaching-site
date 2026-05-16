@@ -861,9 +861,6 @@ export default function HomePage() {
           borderTop: `1.5px solid ${INK}`, borderBottom: `1.5px solid ${INK}`, position: "relative",
         }}
       >
-        <motion.div variants={fadeUp} style={{ fontFamily: mono, fontSize: 12, letterSpacing: 2, marginBottom: 24 }}>
-          [08] — 4 SPOTS · MAY 2026 INTAKE
-        </motion.div>
         <motion.h2 variants={fadeUp} style={{ fontFamily: display, fontSize: 160, letterSpacing: 2, lineHeight: 0.88, margin: 0 }}>
           YOUR ARC<br /><span style={{ color: INK, fontStyle: "italic" }}>STARTS NOW.</span>
         </motion.h2>
@@ -887,7 +884,7 @@ export default function HomePage() {
       {/* ── FOOTER ──────────────────────────────────────────────────────── */}
       <footer style={{ padding: 40, background: INK, color: CREAM }}>
         <div style={{ marginBottom: 32, paddingBottom: 32, borderBottom: "1px solid rgba(245,237,216,0.15)" }}>
-          <Logo src="/tc-logo-white.png" size={160} invert withWordmark wordmarkSize={32} />
+          <Logo src="/tc-logo-white.png" size={72} invert withWordmark wordmarkSize={36} />
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40 }}>
           <div>
@@ -900,7 +897,7 @@ export default function HomePage() {
           <div>
             <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, opacity: 0.5, marginBottom: 10, textTransform: "uppercase" }}>Contact</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 14 }}>
-              <a href="mailto:hello@tencoaching.com.au" style={{ color: CREAM, textDecoration: "none" }}>hello@tencoaching.com.au</a>
+              <a href="mailto:ten@tencoaching.com.au" style={{ color: CREAM, textDecoration: "none" }}>ten@tencoaching.com.au</a>
             </div>
           </div>
         </div>
