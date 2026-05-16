@@ -20,6 +20,9 @@ Drop all client and coach photos here. Filenames must match exactly as listed be
 | `tenhang-basketball-01.jpg` | Basketball photo 1 — [05] GALLERY · polaroid 6 · caption: PICKUP · WESTERN SYD |
 | `tenhang-basketball-02.jpg` | Basketball photo 2 — [05] GALLERY · polaroid 7 · caption: ON THE COURT |
 | `tenhang-gym-01.jpg` | Gym/physique photo — [05] GALLERY · polaroid 8 · caption: THE FLOOR |
+| `tenhang-skinny.jpg` | Journal cover — [06] MY TRAINING ARC · post 1 · THE SKINNY PHASE — WHERE IT ALL STARTED |
+| `tenhang-stuck.jpg` | Journal cover — [06] MY TRAINING ARC · post 2 · STUCK BEING MID |
+| `tenhang-peak.jpg` | Journal cover — [06] MY TRAINING ARC · post 3 · PEAK UNLOCKED — WHEN IT ALL CLICKED |
 
 ## Format
 

@@ -138,7 +138,7 @@ function GalleryPhoto({ src, label }: { src: string; label: string }) {
 
 // ── Hero polaroid photo component ────────────────────────────────────────
 
-function HeroPhoto({ src, width, height }: { src: string; width: number; height: number }) {
+function HeroPhoto({ src, width, height }: { src: string; width: number | string; height: number }) {
   const [failed, setFailed] = useState(false);
   return (
     <div style={{
@@ -148,6 +148,46 @@ function HeroPhoto({ src, width, height }: { src: string; width: number; height:
       <Image src="/tc-logo-white.png" alt="" width={64} height={64} style={{ opacity: 0.3, flexShrink: 0 }} />
       {!failed && (
         <Image src={src} alt="" fill style={{ objectFit: "cover" }} onError={() => setFailed(true)} />
+      )}
+    </div>
+  );
+}
+
+// ── About section portrait photo ─────────────────────────────────────────
+
+function AboutPhoto({ src }: { src: string }) {
+  const [failed, setFailed] = useState(false);
+  return (
+    <div style={{
+      position: "relative", width: "100%", height: "100%",
+      background: INK, overflow: "hidden",
+      display: "flex", alignItems: "center", justifyContent: "center",
+    }}>
+      <Image src="/tc-logo-white.png" alt="" width={80} height={80}
+        style={{ opacity: 0.3, flexShrink: 0 }} />
+      {!failed && (
+        <Image src={src} alt="About" fill style={{ objectFit: "cover" }} onError={() => setFailed(true)} />
+      )}
+    </div>
+  );
+}
+
+// ── Journal card portrait photo ───────────────────────────────────────────
+
+function JournalPhoto({ src }: { src: string }) {
+  const [failed, setFailed] = useState(false);
+  return (
+    <div style={{
+      position: "relative", width: "100%", aspectRatio: "3/4",
+      background: INK, overflow: "hidden",
+      display: "flex", alignItems: "center", justifyContent: "center",
+    }}>
+      <Image src="/tc-logo-white.png" alt="" width={80} height={80}
+        style={{ opacity: 0.3, flexShrink: 0 }} />
+      {!failed && (
+        <Image src={src} alt="" fill
+          style={{ objectFit: "cover", objectPosition: "top" }}
+          onError={() => setFailed(true)} />
       )}
     </div>
   );
@@ -207,6 +247,7 @@ const POSTS = [
     cat: "ORIGIN",
     title: "THE SKINNY PHASE — WHERE IT ALL STARTED",
     preview: "50kg, no plan, no clue. Every arc has a beginning — this is mine.",
+    photo: "/photos/tenhang-skinny.jpg",
     body: [
       "Every arc has a beginning. Mine started at 15, 50kg, and absolutely clueless.",
       "If you saw me back then you wouldn't have guessed I'd end up coaching people on their physique. I was the skinny kid — and I mean properly skinny. The kind where people don't hesitate to remind you. \"You need to eat more\" was something I heard constantly and after a while it started getting to me. I'd look around and think — would I ever actually look like I lift?",
@@ -222,6 +263,7 @@ const POSTS = [
     cat: "STUCK",
     title: "STUCK BEING MID",
     preview: "Gained the weight, stopped progressing in lifts. Stuck being mid and didn't even know why.",
+    photo: "/photos/tenhang-stuck.jpg",
     body: [
       "There's a phase nobody talks about in fitness. You're not a beginner anymore. You're not where you want to be either. You're just... stuck. That was me from 17 to 21 and honestly it bled into every part of my life.",
       "By this point I'd naturally climbed from 60kg up to around 72-73kg. I wasn't fat — nobody was pulling me aside to say anything — but I knew. I could feel it. Sluggish on the court, soft in the mirror, going through the motions in the gym. I looked normal to everyone else but to me I knew I was capable of so much more and that gap between where I was and where I wanted to be started eating at me.",
@@ -237,6 +279,7 @@ const POSTS = [
     cat: "PEAK",
     title: "PEAK UNLOCKED — WHEN IT ALL CLICKED",
     preview: "The moment it all clicked. From mid to peak — and exactly how I got there.",
+    photo: "/photos/tenhang-peak.jpg",
     body: [
       "Something had to change. So I changed the one thing I hadn't tried yet.",
       "No grand plan. No coach. Just hit a wall and decided to finally get serious about the one thing I'd been ignoring the whole time — my nutrition. I was already active, already consistent in the gym, already playing ball twice a week and hitting 10k steps most days. My body was ready. It was just waiting for the right fuel.",
@@ -631,37 +674,40 @@ export default function HomePage() {
 
       {/* ── ABOUT ───────────────────────────────────────────────────────── */}
       <section id="about" style={{ padding: "100px 40px", borderTop: `1.5px solid ${INK}`, borderBottom: `1.5px solid ${INK}` }}>
+        <div style={{ maxWidth: 1200, marginLeft: "auto", marginRight: "auto" }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={stagger}
-          style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 64, alignItems: "center" }}
         >
-          {/* Image col */}
-          <motion.div variants={fadeIn} style={{ position: "relative" }}>
-            <ClientPhoto src="/photos/tenhang-japan-travel.jpg" label="JAPAN · TRAVEL" />
-            <div style={{
-              position: "absolute", top: -14, left: 40, width: 80, height: 24,
-              background: TAPE, transform: "rotate(-3deg)",
-            }} />
-          </motion.div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "stretch" }}>
+            {/* Image col */}
+            <motion.div variants={fadeIn} style={{ position: "relative", height: "100%" }}>
+              <div style={{
+                position: "absolute", top: -14, left: 30, width: 80, height: 24,
+                background: TAPE, transform: "rotate(-3deg)", zIndex: 1,
+              }} />
+              <AboutPhoto src="/photos/tenhang-japan-travel.jpg" />
+            </motion.div>
 
-          {/* Text col */}
-          <div>
-            <motion.div variants={fadeUp} style={{ fontFamily: mono, fontSize: 12, letterSpacing: 2, marginBottom: 16, color: DEEP }}>
-              [04] — ABOUT THE COACH
-            </motion.div>
-            <motion.h2 variants={fadeUp} style={{ fontFamily: display, fontSize: 80, letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
-              MEET YOUR <span style={{ color: DEEP, fontStyle: "italic" }}>COACH.</span>
-            </motion.h2>
-            <motion.div variants={fadeUp} style={{ marginTop: 28, fontSize: 17, color: SUB, lineHeight: 1.7, maxWidth: 560, display: "flex", flexDirection: "column", gap: "1.2em" }}>
-              <p>I&apos;m Tenhang — a 22 year old from Western Sydney who&apos;s obsessed with fitness, living life, and helping people become the best version of themselves.</p>
-              <p>As a kid I tried every sport I could get my hands on — footy, AFL — to finding my real home on the basketball court. Basketball has been a massive part of my life since high school and still is today, and eventually that love for sport led me to falling in love with the gym. Fitness was never something I forced, it was just always there, evolving with me. When I started taking it seriously something clicked. Not just physically but mentally. I realised you don&apos;t have to choose between looking your best and living your life — the late nights, the trips overseas, the weekends with people you love. You can have both.</p>
-              <p>Today I coach people who want that same thing. I travel whenever I have the opportunity, I&apos;m a foodie at heart who loves eating a lot, and I&apos;m always down for a good time — fitness never stopped me from any of that, if anything it made me enjoy it even more. Every client I work with I treat like a mate. I&apos;m invested in where you end up because watching someone hit their goal is genuinely one of the best feelings I know. This started as a passion. Now it&apos;s my purpose.</p>
-            </motion.div>
+            {/* Text col */}
+            <div>
+              <motion.div variants={fadeUp} style={{ fontFamily: mono, fontSize: 12, letterSpacing: 2, marginBottom: 16, color: DEEP }}>
+                [04] — ABOUT THE COACH
+              </motion.div>
+              <motion.h2 variants={fadeUp} style={{ fontFamily: display, fontSize: 80, letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
+                MEET YOUR <span style={{ color: DEEP, fontStyle: "italic" }}>COACH.</span>
+              </motion.h2>
+              <motion.div variants={fadeUp} style={{ marginTop: 28, fontSize: 17, color: SUB, lineHeight: 1.7, maxWidth: 560, display: "flex", flexDirection: "column", gap: "1.2em" }}>
+                <p>I&apos;m Tenhang — a 22 year old from Western Sydney who&apos;s obsessed with fitness, living life, and helping people become the best version of themselves.</p>
+                <p>As a kid I tried every sport I could get my hands on — footy, AFL — to finding my real home on the basketball court. Basketball has been a massive part of my life since high school and still is today, and eventually that love for sport led me to falling in love with the gym. Fitness was never something I forced, it was just always there, evolving with me. When I started taking it seriously something clicked. Not just physically but mentally. I realised you don&apos;t have to choose between looking your best and living your life — the late nights, the trips overseas, the weekends with people you love. You can have both.</p>
+                <p>Today I coach people who want that same thing. I travel whenever I have the opportunity, I&apos;m a foodie at heart who loves eating a lot, and I&apos;m always down for a good time — fitness never stopped me from any of that, if anything it made me enjoy it even more. Every client I work with I treat like a mate. I&apos;m invested in where you end up because watching someone hit their goal is genuinely one of the best feelings I know. This started as a passion. Now it&apos;s my purpose.</p>
+              </motion.div>
+            </div>
           </div>
         </motion.div>
+        </div>
       </section>
 
       {/* ── GALLERY ─────────────────────────────────────────────────────── */}
@@ -731,8 +777,7 @@ export default function HomePage() {
                   boxShadow: `4px 4px 0 ${INK}`, cursor: "pointer",
                   display: "flex", flexDirection: "column",
                 }}>
-                <Placeholder label={p.title} style={{ width: "100%", height: 200 }}
-                  bg={INK} fg={hexToRgba(LIGHT, 0.15)} text={hexToRgba(MID, 0.7)} seed={70 + i} />
+                <JournalPhoto src={p.photo} />
                 <div style={{ padding: "22px 22px 24px", flex: 1, display: "flex", flexDirection: "column" }}>
                   <div style={{ marginBottom: 14 }}>
                     <span style={{ fontFamily: mono, fontSize: 10, background: INK, color: CREAM, padding: "3px 8px", letterSpacing: 1 }}>{p.cat}</span>
