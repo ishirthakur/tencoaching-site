@@ -410,7 +410,7 @@ export default function HomePage() {
           width: 1400, height: 1400,
           opacity: 0.18, pointerEvents: "none", zIndex: 0,
         }}>
-          <Image src="/tc-logo-green.png" alt="" width={1400} height={1400} priority style={{ display: "block" }} />
+          <Image src="/tc-watermark-wukong.png" alt="" width={1400} height={1400} priority style={{ display: "block" }} />
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 48, alignItems: "flex-start", position: "relative", zIndex: 1 }}>
