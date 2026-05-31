@@ -213,7 +213,7 @@ function Logo({
         : <LogoMark size={size} invert={invert} />
       }
       {withWordmark && (
-        <div style={{ fontFamily: display, fontSize: wordmarkSize, letterSpacing: 2.5, color: invert ? CREAM : INK, whiteSpace: "nowrap" }}>
+        <div className="nav-wordmark" style={{ fontFamily: display, fontSize: wordmarkSize, letterSpacing: 2.5, color: invert ? CREAM : INK, whiteSpace: "nowrap" }}>
           TEN COACHING
         </div>
       )}
@@ -371,6 +371,7 @@ const CAL_URL = "https://cal.com/tencoaching/discoverycall";
 
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState(-1);
+  const [openProgram, setOpenProgram] = useState(-1);
   const [activePost, setActivePost] = useState<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -394,28 +395,30 @@ export default function HomePage() {
 
       {/* ── NAV ─────────────────────────────────────────────────────────── */}
       <nav style={{
-        padding: "14px 40px", display: "flex", justifyContent: "space-between", alignItems: "center",
-        borderBottom: `1.5px solid ${INK}`,
+        padding: "14px clamp(20px, 5vw, 40px)", display: "flex", justifyContent: "space-between", alignItems: "center",
+        borderBottom: `1.5px solid ${INK}`, gap: 16,
       }}>
         <Logo src="/tc-logo-green.png" size={72} priority withWordmark wordmarkSize={36} />
         <div style={{ display: "flex", gap: 28, alignItems: "center" }}>
-          {["Program", "Results", "About", "FAQ"].map((l) => (
-            <a key={l} href={`#${l.toLowerCase()}`} style={{
-              color: INK, textDecoration: "none", fontSize: 13, fontWeight: 500,
-              fontFamily: mono, textTransform: "uppercase", letterSpacing: 0.5,
-            }}>{l}</a>
-          ))}
+          <div className="nav-links" style={{ display: "flex", gap: 28, alignItems: "center" }}>
+            {["Program", "Results", "About", "FAQ"].map((l) => (
+              <a key={l} href={`#${l.toLowerCase()}`} style={{
+                color: INK, textDecoration: "none", fontSize: 13, fontWeight: 500,
+                fontFamily: mono, textTransform: "uppercase", letterSpacing: 0.5,
+              }}>{l}</a>
+            ))}
+          </div>
           <a href="#book" style={{
             background: INK, color: CREAM, border: "none", padding: "11px 20px", borderRadius: 2,
             fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: mono, letterSpacing: 1, textTransform: "uppercase",
-            textDecoration: "none", display: "inline-block",
+            textDecoration: "none", display: "inline-block", whiteSpace: "nowrap",
           }}>Book a call ↗</a>
         </div>
       </nav>
 
 
 {/* ── HERO ────────────────────────────────────────────────────────── */}
-      <section style={{ padding: "60px 40px 40px", position: "relative", overflow: "hidden" }}>
+      <section style={{ padding: "60px clamp(20px, 5vw, 40px) 40px", position: "relative", overflow: "hidden" }}>
         {/* Watermark */}
         <div style={{
           position: "absolute", top: "50%", left: "50%",
@@ -426,7 +429,7 @@ export default function HomePage() {
           <Image src="/tc-watermark-wukong.png" alt="" width={1400} height={1400} priority style={{ display: "block" }} />
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 48, alignItems: "flex-start", position: "relative", zIndex: 1 }}>
+        <div className="hero-grid">
 
           {/* Left — copy */}
           <div>
@@ -434,7 +437,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" as const }}
-              style={{ fontFamily: display, fontSize: 156, lineHeight: 0.88, letterSpacing: 0, margin: 0, color: INK }}
+              style={{ fontFamily: display, fontSize: "clamp(64px, 15vw, 156px)", lineHeight: 0.88, letterSpacing: 0, margin: 0, color: INK }}
             >
               SOAR<br />
               <span style={{ color: DEEP, fontStyle: "italic" }}>BEYOND LIMITS</span>
@@ -444,7 +447,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" as const }}
-              style={{ fontSize: 21, maxWidth: 540, marginTop: 32, color: SUB, lineHeight: 1.45 }}
+              style={{ fontSize: "clamp(17px, 4vw, 21px)", maxWidth: 540, marginTop: 32, color: SUB, lineHeight: 1.45 }}
             >
               Real 1:1 physique coaching for busy people who want to get lean without sacrificing their life. Built around your schedule so you can become aesthetic, get strong, and still show up for everything that matters.
             </motion.p>
@@ -453,7 +456,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: 0.42 }}
-              style={{ display: "flex", gap: 12, marginTop: 36 }}
+              style={{ display: "flex", gap: 12, marginTop: 36, flexWrap: "wrap" }}
             >
               <a href={CAL_URL} target="_blank" rel="noopener noreferrer" style={{
                 background: DEEP, color: CREAM, border: `1.5px solid ${INK}`, padding: "16px 26px",
@@ -469,7 +472,7 @@ export default function HomePage() {
           </div>
 
           {/* Right — polaroid stack */}
-          <div style={{ position: "relative", height: 520, width: 480, margin: "0 auto" }}>
+          <div className="hero-polaroids" style={{ position: "relative", height: 520, width: 480, margin: "0 auto" }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -519,9 +522,9 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.65 }}
+          className="stats-ribbon"
           style={{
             marginTop: 60, background: INK, color: CREAM,
-            display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
             border: `1.5px solid ${INK}`, borderRadius: 2,
             position: "relative", zIndex: 1,
           }}
@@ -531,7 +534,7 @@ export default function HomePage() {
               padding: "28px 24px", borderLeft: i > 0 ? "1px solid rgba(245,237,216,0.15)" : "none",
               display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12,
             }}>
-              <div style={{ fontFamily: display, fontSize: 64, lineHeight: 1, color: LIGHT, letterSpacing: 1 }}>{s.n}</div>
+              <div style={{ fontFamily: display, fontSize: "clamp(40px, 8vw, 64px)", lineHeight: 1, color: LIGHT, letterSpacing: 1 }}>{s.n}</div>
               <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1.5, opacity: 0.7 }}>{s.l}</div>
             </div>
           ))}
@@ -539,7 +542,7 @@ export default function HomePage() {
       </section>
 
       {/* ── PROGRAM ─────────────────────────────────────────────────────── */}
-      <section id="program" style={{ padding: "100px 40px", borderTop: `1.5px solid ${INK}`, borderBottom: `1.5px solid ${INK}`, background: INK, color: CREAM }}>
+      <section id="program" style={{ padding: "clamp(64px, 10vw, 100px) clamp(20px, 5vw, 40px)", borderTop: `1.5px solid ${INK}`, borderBottom: `1.5px solid ${INK}`, background: INK, color: CREAM }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -551,7 +554,7 @@ export default function HomePage() {
               <motion.div variants={fadeUp} style={{ fontFamily: mono, fontSize: 12, letterSpacing: 2, marginBottom: 16, color: LIGHT }}>
                 THE PROGRAM
               </motion.div>
-              <motion.h2 variants={fadeUp} style={{ fontFamily: display, fontSize: 104, letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
+              <motion.h2 variants={fadeUp} style={{ fontFamily: display, fontSize: "clamp(52px, 11vw, 104px)", letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
                 THE BLUEPRINT TO<br />
                 <span style={{ color: LIGHT }}>YOUR PEAK</span>
               </motion.h2>
@@ -563,16 +566,37 @@ export default function HomePage() {
             className="program-grid"
           >
             {PROGRAM_FEATURES.map((c, i) => (
-              <motion.div key={i} variants={fadeUp} style={{
-                background: CREAM, color: INK, padding: "28px 26px 24px", borderRadius: 2,
-                border: `1.5px solid ${CREAM}`, position: "relative",
-              }}>
+              <motion.div key={i} variants={fadeUp} className="program-card"
+                onClick={() => setOpenProgram(openProgram === i ? -1 : i)}
+                style={{
+                  background: CREAM, color: INK, padding: "28px 26px 24px", borderRadius: 2,
+                  border: `1.5px solid ${CREAM}`, position: "relative", cursor: "pointer",
+                  display: "flex", flexDirection: "column",
+                }}>
                 <div style={{
                   position: "absolute", top: -11, right: 20, background: MID, color: CREAM,
                   padding: "3px 10px", fontFamily: mono, fontSize: 10, letterSpacing: 1, fontWeight: 700, textTransform: "uppercase",
                 }}>{c.tag}</div>
-                <div style={{ fontFamily: display, fontSize: 28, letterSpacing: 1, marginBottom: 12 }}>{c.t}</div>
-                <div style={{ fontSize: 14, color: SUB, lineHeight: 1.55 }}>{c.d}</div>
+                <div className="program-head" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 14, minHeight: 64 }}>
+                  <div className="program-title" style={{ fontFamily: display, fontSize: 28, letterSpacing: 1 }}>{c.t}</div>
+                  <div style={{ fontFamily: display, fontSize: 26, color: DEEP, flexShrink: 0, lineHeight: 1 }}>
+                    {openProgram === i ? "−" : "+"}
+                  </div>
+                </div>
+                <AnimatePresence initial={false}>
+                  {openProgram === i && (
+                    <motion.div
+                      key="detail"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2, ease: "easeOut" as const }}
+                      style={{ overflow: "hidden" }}
+                    >
+                      <div style={{ marginTop: 12, fontSize: 14, color: SUB, lineHeight: 1.55 }}>{c.d}</div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             ))}
           </motion.div>
@@ -580,7 +604,7 @@ export default function HomePage() {
       </section>
 
       {/* ── RESULTS ─────────────────────────────────────────────────────── */}
-      <section id="results" style={{ padding: "100px 40px" }}>
+      <section id="results" style={{ padding: "clamp(64px, 10vw, 100px) clamp(20px, 5vw, 40px)" }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -589,7 +613,7 @@ export default function HomePage() {
         >
           <motion.div variants={fadeUp} style={{ marginBottom: 64 }}>
             <div style={{ fontFamily: mono, fontSize: 12, letterSpacing: 2, marginBottom: 16, color: DEEP }}>CLIENT RESULTS</div>
-            <h2 style={{ fontFamily: display, fontSize: 104, letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
+            <h2 style={{ fontFamily: display, fontSize: "clamp(48px, 11vw, 104px)", letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
               BUILT FROM <span style={{ color: DEEP, fontStyle: "italic" }}>ZERO</span><br />
               THE RESULTS DON&apos;T LIE
             </h2>
@@ -619,7 +643,7 @@ export default function HomePage() {
       </section>
 
       {/* ── ABOUT ───────────────────────────────────────────────────────── */}
-      <section id="about" style={{ padding: "100px 40px", borderTop: `1.5px solid ${INK}`, borderBottom: `1.5px solid ${INK}` }}>
+      <section id="about" style={{ padding: "clamp(64px, 10vw, 100px) clamp(20px, 5vw, 40px)", borderTop: `1.5px solid ${INK}`, borderBottom: `1.5px solid ${INK}` }}>
         <div style={{ maxWidth: 1200, marginLeft: "auto", marginRight: "auto" }}>
         <motion.div
           initial="hidden"
@@ -627,9 +651,9 @@ export default function HomePage() {
           viewport={{ once: true, margin: "-80px" }}
           variants={stagger}
         >
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "stretch" }}>
+          <div className="about-grid">
             {/* Image col */}
-            <motion.div variants={fadeIn} style={{ position: "relative", height: "100%" }}>
+            <motion.div variants={fadeIn} className="about-photo" style={{ position: "relative", height: "100%" }}>
               <div style={{
                 position: "absolute", top: -14, left: 30, width: 80, height: 24,
                 background: TAPE, transform: "rotate(-3deg)", zIndex: 1,
@@ -639,7 +663,7 @@ export default function HomePage() {
 
             {/* Text col */}
             <div>
-              <motion.h2 variants={fadeUp} style={{ fontFamily: display, fontSize: 80, letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
+              <motion.h2 variants={fadeUp} style={{ fontFamily: display, fontSize: "clamp(48px, 10vw, 80px)", letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
                 MEET YOUR <span style={{ color: DEEP, fontStyle: "italic" }}>COACH</span>
               </motion.h2>
               <motion.div variants={fadeUp} style={{ marginTop: 28, fontSize: 17, color: SUB, lineHeight: 1.7, maxWidth: 560, display: "flex", flexDirection: "column", gap: "1.2em" }}>
@@ -654,7 +678,7 @@ export default function HomePage() {
       </section>
 
       {/* ── GALLERY ─────────────────────────────────────────────────────── */}
-      <section id="gallery" style={{ padding: "100px 40px", background: tintAlpha(INK, CREAM, 0.04) }}>
+      <section id="gallery" style={{ padding: "clamp(64px, 10vw, 100px) clamp(20px, 5vw, 40px)", background: tintAlpha(INK, CREAM, 0.04) }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -662,16 +686,17 @@ export default function HomePage() {
           variants={stagger}
         >
           <motion.div variants={fadeUp} style={{ marginBottom: 56 }}>
-            <h2 style={{ fontFamily: display, fontSize: 96, letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
+            <h2 style={{ fontFamily: display, fontSize: "clamp(44px, 10vw, 96px)", letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
               THE LIFE THAT DRIVES THE <span style={{ color: DEEP, fontStyle: "italic" }}>WORK</span>
             </h2>
           </motion.div>
         </motion.div>
 
-        <div style={{ position: "relative", height: 620, maxWidth: 1100, margin: "0 auto", overflow: "hidden" }}>
+        <div className="gallery-stage" style={{ position: "relative", height: 620, maxWidth: 1100, margin: "0 auto", overflow: "hidden" }}>
           {GALLERY.map((p, i) => (
             <motion.div
               key={i}
+              className="gallery-item"
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
@@ -690,7 +715,7 @@ export default function HomePage() {
       </section>
 
       {/* ── JOURNAL ─────────────────────────────────────────────────────── */}
-      <section id="journal" style={{ padding: "100px 40px", borderTop: `1.5px solid ${INK}` }}>
+      <section id="journal" style={{ padding: "clamp(64px, 10vw, 100px) clamp(20px, 5vw, 40px)", borderTop: `1.5px solid ${INK}` }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -698,17 +723,18 @@ export default function HomePage() {
           variants={stagger}
         >
           <motion.div variants={fadeUp} style={{ marginBottom: 56 }}>
-            <h2 style={{ fontFamily: display, fontSize: 96, letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
+            <h2 style={{ fontFamily: display, fontSize: "clamp(44px, 10vw, 96px)", letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
               MY TRAINING <span style={{ color: DEEP, fontStyle: "italic" }}>ARC</span>
             </h2>
           </motion.div>
 
           <motion.div
             variants={stagger}
-            style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}
+            className="journal-grid"
           >
             {POSTS.map((p, i) => (
               <motion.article key={i} variants={fadeUp}
+                className="journal-card"
                 onClick={() => setActivePost(i)}
                 style={{
                   background: CREAM, border: `1.5px solid ${INK}`, borderRadius: 2,
@@ -731,7 +757,7 @@ export default function HomePage() {
       </section>
 
       {/* ── FAQ ─────────────────────────────────────────────────────────── */}
-      <section id="faq" style={{ padding: "100px 40px", borderTop: `1.5px solid ${INK}` }}>
+      <section id="faq" style={{ padding: "clamp(64px, 10vw, 100px) clamp(20px, 5vw, 40px)", borderTop: `1.5px solid ${INK}` }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -739,14 +765,14 @@ export default function HomePage() {
           variants={stagger}
         >
           <motion.div variants={fadeUp} style={{ marginBottom: 48 }}>
-            <h2 style={{ fontFamily: display, fontSize: 88, letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
+            <h2 style={{ fontFamily: display, fontSize: "clamp(44px, 10vw, 88px)", letterSpacing: 2, lineHeight: 0.9, margin: 0 }}>
               QUESTIONS, <span style={{ color: DEEP }}>ANSWERED</span>
             </h2>
           </motion.div>
 
           <motion.div
             variants={staggerFast}
-            style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}
+            className="faq-grid"
           >
             {FAQS.map((f, i) => (
               <motion.div key={i} variants={fadeUp}
@@ -794,14 +820,14 @@ export default function HomePage() {
         viewport={{ once: true, margin: "-80px" }}
         variants={stagger}
         style={{
-          padding: "120px 40px", background: DEEP, color: CREAM, textAlign: "center",
+          padding: "clamp(72px, 12vw, 120px) clamp(20px, 5vw, 40px)", background: DEEP, color: CREAM, textAlign: "center",
           borderTop: `1.5px solid ${INK}`, borderBottom: `1.5px solid ${INK}`, position: "relative",
         }}
       >
-        <motion.h2 variants={fadeUp} style={{ fontFamily: display, fontSize: 160, letterSpacing: 2, lineHeight: 0.88, margin: 0 }}>
+        <motion.h2 variants={fadeUp} style={{ fontFamily: display, fontSize: "clamp(60px, 16vw, 160px)", letterSpacing: 2, lineHeight: 0.88, margin: 0 }}>
           YOUR ARC<br /><span style={{ color: INK, fontStyle: "italic" }}>STARTS NOW</span>
         </motion.h2>
-        <motion.p variants={fadeUp} style={{ fontSize: 19, maxWidth: 560, margin: "32px auto 40px", lineHeight: 1.5 }}>
+        <motion.p variants={fadeUp} style={{ fontSize: "clamp(16px, 4vw, 19px)", maxWidth: 560, margin: "32px auto 40px", lineHeight: 1.5 }}>
           Book a free discovery call and let&apos;s talk about where you are, where you want to be, and how to get there. No pressure, no pitch, just an honest conversation about your goals and whether this is the right move for you.
         </motion.p>
         <motion.div variants={fadeUp} style={{ display: "flex", flexWrap: "wrap", gap: 16, justifyContent: "center" }}>
@@ -819,7 +845,7 @@ export default function HomePage() {
       </motion.section>
 
       {/* ── FOOTER ──────────────────────────────────────────────────────── */}
-      <footer style={{ padding: 40, background: INK, color: CREAM }}>
+      <footer style={{ padding: "clamp(28px, 5vw, 40px)", background: INK, color: CREAM }}>
         <div className="footer-top">
           <Logo src="/tc-logo-white.png" size={72} invert withWordmark wordmarkSize={36} />
           <div style={{ display: "flex", gap: 40 }}>
@@ -845,7 +871,7 @@ export default function HomePage() {
           </div>
         </div>
         <div style={{ marginTop: 40, paddingTop: 32, borderTop: "1px solid rgba(245,237,216,0.15)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
-          <div style={{ fontFamily: display, fontSize: 36, letterSpacing: 3, color: DEEP }}>
+          <div style={{ fontFamily: display, fontSize: "clamp(26px, 6vw, 36px)", letterSpacing: 3, color: DEEP }}>
             SOAR BEYOND LIMITS
           </div>
           <div style={{ display: "flex", gap: 12 }}>
@@ -912,12 +938,12 @@ export default function HomePage() {
                 }}
               >×</button>
 
-              <div className="modal-scroll" style={{ overflowY: "auto", padding: "48px 48px 64px", flex: 1 }}>
+              <div className="modal-scroll" style={{ overflowY: "auto", padding: "clamp(32px, 6vw, 48px) clamp(24px, 6vw, 48px) 64px", flex: 1 }}>
                 <div style={{ fontFamily: mono, fontSize: 11, letterSpacing: 2, color: DEEP, marginBottom: 16, textTransform: "uppercase" }}>
                   {POSTS[activePost].cat}
                 </div>
                 <h2 id="modal-title" style={{
-                  fontFamily: display, fontSize: 52, letterSpacing: 1, lineHeight: 0.95,
+                  fontFamily: display, fontSize: "clamp(34px, 7vw, 52px)", letterSpacing: 1, lineHeight: 0.95,
                   margin: "0 0 32px", color: CREAM,
                 }}>
                   {POSTS[activePost].title}

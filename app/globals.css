@@ -54,9 +54,119 @@ a { -webkit-tap-highlight-color: transparent; }
   align-items: start;
 }
 
-@media (max-width: 600px) {
-  .program-grid {
+/* Nav */
+@media (max-width: 768px) {
+  .nav-links { display: none !important; }
+  .nav-wordmark { font-size: 24px !important; }
+  nav img { width: 52px !important; height: 52px !important; }
+}
+@media (max-width: 560px) {
+  .nav-wordmark { display: none !important; }
+}
+
+/* Hero two-column → stack */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 900px) {
+  .hero-grid {
     grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .hero-polaroids {
+    width: 100% !important;
+    max-width: 480px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+/* Phones: scale the 480px polaroid collage down so it fits and isn't oversized */
+@media (max-width: 560px) {
+  .hero-polaroids {
+    transform: scale(0.78);
+    transform-origin: top center;
+    height: 400px !important;
+    margin-bottom: -56px !important;
+  }
+}
+
+/* Stats ribbon 4 → 2×2 */
+.stats-ribbon {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 768px) {
+  .stats-ribbon {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stats-ribbon > div:nth-child(odd) { border-left: none !important; }
+  .stats-ribbon > div:nth-child(n+3) { border-top: 1px solid rgba(245,237,216,0.15); }
+  /* Stack number over label so labels stop wrapping into skinny columns */
+  .stats-ribbon > div {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    padding: 22px 18px !important;
+  }
+}
+
+/* About two-column → stack */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: stretch;
+}
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .about-photo { min-height: 360px; }
+}
+
+/* Journal 3 → 2 (tablet) → slider (mobile) */
+.journal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 900px) {
+  .journal-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* FAQ 2 → 1 */
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+@media (max-width: 768px) {
+  .faq-grid { grid-template-columns: 1fr; }
+}
+
+/* Gallery: absolute collage on desktop → swipeable row on mobile */
+@media (max-width: 768px) {
+  .gallery-stage {
+    height: auto !important;
+    display: flex;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 16px;
+    padding-bottom: 20px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .gallery-stage::-webkit-scrollbar { display: none; }
+  .gallery-item {
+    position: static !important;
+    flex: 0 0 auto;
+    scroll-snap-align: center;
   }
 }
 
@@ -78,12 +188,41 @@ a { -webkit-tap-highlight-color: transparent; }
 }
 
 @media (max-width: 768px) {
-  .results-grid {
-    grid-template-columns: 1fr;
-  }
+  /* Stack the image/text columns inside each result card */
   .results-card {
     grid-template-columns: 1fr;
+    min-height: 0;
   }
+}
+
+/* ── Mobile swipe sliders: Program, Results, Journal ──────────────────── */
+/* Placed after all base grid rules so flex wins the cascade at mobile width */
+@media (max-width: 768px) {
+  .program-grid,
+  .results-grid,
+  .journal-grid {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    gap: 16px;
+    padding: 14px 4px 22px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .program-grid::-webkit-scrollbar,
+  .results-grid::-webkit-scrollbar,
+  .journal-grid::-webkit-scrollbar { display: none; }
+
+  .program-card,
+  .results-card,
+  .journal-card {
+    flex: 0 0 86%;
+    scroll-snap-align: start;
+  }
+
+  /* Uniform collapsed Program cards in the mobile slider */
+  .program-title { font-size: 22px !important; }
+  .program-head { min-height: 72px !important; align-items: center !important; }
 }
 
 /* Footer top row */
