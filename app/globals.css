@@ -70,6 +70,7 @@ a { -webkit-tap-highlight-color: transparent; }
 .results-card {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
+  min-height: 520px;
   border: 1.5px solid #2A2A28;
   border-radius: 2px;
   overflow: hidden;
@@ -82,6 +83,20 @@ a { -webkit-tap-highlight-color: transparent; }
   }
   .results-card {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Footer top row */
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    gap: 32px;
   }
 }
 
