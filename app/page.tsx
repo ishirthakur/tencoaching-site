@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Fragment, type RefObject } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 
@@ -367,6 +367,67 @@ const staggerFast: Variants = {
 
 const CAL_URL = "https://cal.com/tencoaching/discoverycall";
 
+// ── Hooks ────────────────────────────────────────────────────────────────
+
+function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia(query);
+    setMatches(mql.matches);
+    const onChange = (e: MediaQueryListEvent) => setMatches(e.matches);
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, [query]);
+  return matches;
+}
+
+// Infinite scroll loop: content is rendered as 3 identical copies [A][B][C].
+// We start scrolled into the middle copy and silently jump back by one
+// set-width whenever the user scrolls into a side copy — seamless because
+// every copy is identical.
+function useSliderLoop(ref: RefObject<HTMLElement | null>, enabled: boolean) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !enabled) return;
+
+    const COPIES = 3;
+    let setWidth = 0;
+    let ticking = false;
+
+    const measure = () => {
+      setWidth = el.scrollWidth / COPIES;
+    };
+    const recenter = () => {
+      measure();
+      if (setWidth > 0) el.scrollLeft = setWidth;
+    };
+
+    const onScroll = () => {
+      if (ticking || setWidth === 0) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        if (el.scrollLeft < setWidth * 0.5) {
+          el.scrollLeft += setWidth;
+        } else if (el.scrollLeft > setWidth * 2.5) {
+          el.scrollLeft -= setWidth;
+        }
+        ticking = false;
+      });
+    };
+
+    const initId = window.setTimeout(recenter, 0);
+    el.addEventListener("scroll", onScroll, { passive: true });
+    const ro = new ResizeObserver(recenter);
+    ro.observe(el);
+
+    return () => {
+      window.clearTimeout(initId);
+      el.removeEventListener("scroll", onScroll);
+      ro.disconnect();
+    };
+  }, [ref, enabled]);
+}
+
 // ── Page ─────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
@@ -374,6 +435,16 @@ export default function HomePage() {
   const [openProgram, setOpenProgram] = useState(-1);
   const [activePost, setActivePost] = useState<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const programRef = useRef<HTMLDivElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
+  const journalRef = useRef<HTMLDivElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  useSliderLoop(programRef, isMobile);
+  useSliderLoop(journalRef, isMobile);
+  useSliderLoop(galleryRef, isMobile);
+  useSliderLoop(resultsRef, true);
 
   useEffect(() => {
     if (activePost === null) {
@@ -408,7 +479,7 @@ export default function HomePage() {
               }}>{l}</a>
             ))}
           </div>
-          <a href="#book" style={{
+          <a href="#book" className="nav-book" style={{
             background: INK, color: CREAM, border: "none", padding: "11px 20px", borderRadius: 2,
             fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: mono, letterSpacing: 1, textTransform: "uppercase",
             textDecoration: "none", display: "inline-block", whiteSpace: "nowrap",
@@ -474,6 +545,7 @@ export default function HomePage() {
           {/* Right — polaroid stack */}
           <div className="hero-polaroids" style={{ position: "relative", height: 520, width: 480, margin: "0 auto" }}>
             <motion.div
+              className="hero-pic hero-pic-1"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.35 }}
@@ -488,6 +560,7 @@ export default function HomePage() {
             </motion.div>
 
             <motion.div
+              className="hero-pic hero-pic-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.48 }}
@@ -502,6 +575,7 @@ export default function HomePage() {
             </motion.div>
 
             <motion.div
+              className="hero-pic hero-pic-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
@@ -562,43 +636,47 @@ export default function HomePage() {
           </div>
 
           <motion.div
+            ref={programRef}
             variants={stagger}
             className="program-grid"
           >
-            {PROGRAM_FEATURES.map((c, i) => (
-              <motion.div key={i} variants={fadeUp} className="program-card"
-                onClick={() => setOpenProgram(openProgram === i ? -1 : i)}
-                style={{
-                  background: CREAM, color: INK, padding: "28px 26px 24px", borderRadius: 2,
-                  border: `1.5px solid ${CREAM}`, position: "relative", cursor: "pointer",
-                  display: "flex", flexDirection: "column",
-                }}>
-                <div style={{
-                  position: "absolute", top: -11, right: 20, background: MID, color: CREAM,
-                  padding: "3px 10px", fontFamily: mono, fontSize: 10, letterSpacing: 1, fontWeight: 700, textTransform: "uppercase",
-                }}>{c.tag}</div>
-                <div className="program-head" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 14, minHeight: 64 }}>
-                  <div className="program-title" style={{ fontFamily: display, fontSize: 28, letterSpacing: 1 }}>{c.t}</div>
-                  <div style={{ fontFamily: display, fontSize: 26, color: DEEP, flexShrink: 0, lineHeight: 1 }}>
-                    {openProgram === i ? "−" : "+"}
+            {(isMobile ? [0, 1, 2] : [0]).map((copy) =>
+              PROGRAM_FEATURES.map((c, i) => (
+                <motion.div key={`${copy}-${i}`} variants={fadeUp} className="program-card"
+                  aria-hidden={copy > 0}
+                  onClick={() => setOpenProgram(openProgram === i ? -1 : i)}
+                  style={{
+                    background: CREAM, color: INK, padding: "28px 26px 24px", borderRadius: 2,
+                    border: `1.5px solid ${CREAM}`, position: "relative", cursor: "pointer",
+                    display: "flex", flexDirection: "column",
+                  }}>
+                  <div style={{
+                    position: "absolute", top: -11, right: 20, background: MID, color: CREAM,
+                    padding: "3px 10px", fontFamily: mono, fontSize: 10, letterSpacing: 1, fontWeight: 700, textTransform: "uppercase",
+                  }}>{c.tag}</div>
+                  <div className="program-head" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 14, minHeight: 64 }}>
+                    <div className="program-title" style={{ fontFamily: display, fontSize: 28, letterSpacing: 1 }}>{c.t}</div>
+                    <div style={{ fontFamily: display, fontSize: 26, color: DEEP, flexShrink: 0, lineHeight: 1 }}>
+                      {openProgram === i ? "−" : "+"}
+                    </div>
                   </div>
-                </div>
-                <AnimatePresence initial={false}>
-                  {openProgram === i && (
-                    <motion.div
-                      key="detail"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2, ease: "easeOut" as const }}
-                      style={{ overflow: "hidden" }}
-                    >
-                      <div style={{ marginTop: 12, fontSize: 14, color: SUB, lineHeight: 1.55 }}>{c.d}</div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
+                  <AnimatePresence initial={false}>
+                    {openProgram === i && (
+                      <motion.div
+                        key="detail"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2, ease: "easeOut" as const }}
+                        style={{ overflow: "hidden" }}
+                      >
+                        <div style={{ marginTop: 12, fontSize: 14, color: SUB, lineHeight: 1.55 }}>{c.d}</div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              ))
+            )}
           </motion.div>
         </motion.div>
       </section>
@@ -619,10 +697,12 @@ export default function HomePage() {
             </h2>
           </motion.div>
 
-          <motion.div variants={stagger} className="results-grid">
+          <motion.div ref={resultsRef} variants={stagger} className="results-grid">
+            {[0, 1, 2].map((copy) => (
+            <Fragment key={copy}>
 
             {/* JEROME */}
-            <motion.div variants={fadeUp} className="results-card">
+            <motion.div variants={fadeUp} className="results-card" aria-hidden={copy > 0}>
               <ClientPhoto src="/photos/tenhang-client-jerome.jpg" label="BEFORE → AFTER · JEROME" minHeight={340} />
               <div style={{ padding: "28px 24px", display: "flex", flexDirection: "column", gap: 18, background: CREAM, color: INK }}>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
@@ -638,6 +718,32 @@ export default function HomePage() {
               </div>
             </motion.div>
 
+            {/* PLACEHOLDERS — swap in real client results as they come */}
+            {[0, 1, 2, 3].map((k) => (
+              <motion.div key={`ph-${copy}-${k}`} variants={fadeUp} className="results-card" aria-hidden={copy > 0}>
+                <div style={{
+                  position: "relative", background: INK, width: "100%", height: "100%", minHeight: 340,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}>
+                  <Image src="/tc-logo-white.png" alt="" width={110} height={110} style={{ opacity: 0.22, display: "block" }} />
+                </div>
+                <div style={{ padding: "28px 24px", display: "flex", flexDirection: "column", gap: 18, background: CREAM, color: INK }}>
+                  <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                    <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: INK, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>Your result</span>
+                    <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: DEEP, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>Coming soon</span>
+                  </div>
+                  <div style={{ fontSize: 13, lineHeight: 1.75, color: SUB, fontStyle: "italic", flex: 1 }}>
+                    &ldquo;This space is reserved for the next transformation. More client stories are on the way — yours could be one of them.&rdquo;
+                  </div>
+                  <div>
+                    <div style={{ fontFamily: display, fontSize: 28, letterSpacing: 1, color: SUB }}>YOU&apos;RE NEXT</div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+
+            </Fragment>
+            ))}
           </motion.div>
         </motion.div>
       </section>
@@ -692,25 +798,28 @@ export default function HomePage() {
           </motion.div>
         </motion.div>
 
-        <div className="gallery-stage" style={{ position: "relative", height: 620, maxWidth: 1100, margin: "0 auto", overflow: "hidden" }}>
-          {GALLERY.map((p, i) => (
-            <motion.div
-              key={i}
-              className="gallery-item"
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.4, delay: i * 0.06, ease: "easeOut" as const }}
-              style={{ position: "absolute", top: p.top, left: p.left }}
-            >
-              <div style={{
-                transform: `rotate(${p.rotate}deg)`, background: CREAM, padding: 12,
-                boxShadow: `0 8px 24px rgba(0,0,0,0.18), 3px 3px 0 ${INK}`, border: `1px solid ${BORDER}`,
-              }}>
-                <GalleryPhoto src={p.img} label={p.caption} />
-              </div>
-            </motion.div>
-          ))}
+        <div ref={galleryRef} className="gallery-stage" style={{ position: "relative", height: 620, maxWidth: 1100, margin: "0 auto", overflow: "hidden" }}>
+          {(isMobile ? [0, 1, 2] : [0]).map((copy) =>
+            GALLERY.map((p, i) => (
+              <motion.div
+                key={`${copy}-${i}`}
+                className="gallery-item"
+                aria-hidden={copy > 0}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.4, delay: i * 0.06, ease: "easeOut" as const }}
+                style={{ position: "absolute", top: p.top, left: p.left }}
+              >
+                <div style={{
+                  transform: `rotate(${p.rotate}deg)`, background: CREAM, padding: 12,
+                  boxShadow: `0 8px 24px rgba(0,0,0,0.18), 3px 3px 0 ${INK}`, border: `1px solid ${BORDER}`,
+                }}>
+                  <GalleryPhoto src={p.img} label={p.caption} />
+                </div>
+              </motion.div>
+            ))
+          )}
         </div>
       </section>
 
@@ -729,12 +838,15 @@ export default function HomePage() {
           </motion.div>
 
           <motion.div
+            ref={journalRef}
             variants={stagger}
             className="journal-grid"
           >
-            {POSTS.map((p, i) => (
-              <motion.article key={i} variants={fadeUp}
+            {(isMobile ? [0, 1, 2] : [0]).map((copy) =>
+              POSTS.map((p, i) => (
+              <motion.article key={`${copy}-${i}`} variants={fadeUp}
                 className="journal-card"
+                aria-hidden={copy > 0}
                 onClick={() => setActivePost(i)}
                 style={{
                   background: CREAM, border: `1.5px solid ${INK}`, borderRadius: 2,
@@ -751,7 +863,8 @@ export default function HomePage() {
                   <div style={{ marginTop: 18, fontFamily: mono, fontSize: 11, color: DEEP, letterSpacing: 1.5 }}>READ POST →</div>
                 </div>
               </motion.article>
-            ))}
+              ))
+            )}
           </motion.div>
         </motion.div>
       </section>

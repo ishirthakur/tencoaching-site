@@ -60,8 +60,14 @@ a { -webkit-tap-highlight-color: transparent; }
   .nav-wordmark { font-size: 24px !important; }
   nav img { width: 52px !important; height: 52px !important; }
 }
+/* Keep the wordmark visible on phones — shrink everything so it fits */
 @media (max-width: 560px) {
-  .nav-wordmark { display: none !important; }
+  .nav-wordmark { font-size: 20px !important; letter-spacing: 1.5px !important; }
+  nav img { width: 44px !important; height: 44px !important; }
+  .nav-book { padding: 9px 13px !important; font-size: 11px !important; letter-spacing: 0.5px !important; }
+}
+@media (max-width: 380px) {
+  .nav-wordmark { font-size: 17px !important; }
 }
 
 /* Hero two-column → stack */
@@ -85,14 +91,17 @@ a { -webkit-tap-highlight-color: transparent; }
     margin-right: auto !important;
   }
 }
-/* Phones: scale the 480px polaroid collage down so it fits and isn't oversized */
+/* Phones: lay the polaroids out as a clean cascade instead of an overlapping pile */
 @media (max-width: 560px) {
   .hero-polaroids {
-    transform: scale(0.78);
-    transform-origin: top center;
-    height: 400px !important;
-    margin-bottom: -56px !important;
+    transform: none !important;
+    height: 470px !important;
+    width: 100% !important;
+    max-width: 360px;
   }
+  .hero-pic-1 { top: 0 !important; left: 0 !important; right: auto !important; bottom: auto !important; }
+  .hero-pic-2 { top: 140px !important; right: 0 !important; left: auto !important; bottom: auto !important; }
+  .hero-pic-3 { top: 272px !important; left: 28px !important; right: auto !important; bottom: auto !important; }
 }
 
 /* Stats ribbon 4 → 2×2 */
@@ -170,14 +179,20 @@ a { -webkit-tap-highlight-color: transparent; }
   }
 }
 
-/* Client Results 2×2 grid */
+/* Client Results — horizontal slider at all widths */
 .results-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
   gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 4px 24px;
 }
+.results-grid::-webkit-scrollbar { display: none; }
 
 .results-card {
+  flex: 0 0 min(620px, 90%);
+  scroll-snap-align: start;
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   min-height: 520px;
