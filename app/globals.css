@@ -62,12 +62,12 @@ a { -webkit-tap-highlight-color: transparent; }
 }
 /* Keep the wordmark visible on phones — shrink everything so it fits */
 @media (max-width: 560px) {
-  .nav-wordmark { font-size: 20px !important; letter-spacing: 1.5px !important; }
+  .nav-wordmark { font-size: 28px !important; letter-spacing: 1.5px !important; }
   nav img { width: 44px !important; height: 44px !important; }
   .nav-book { padding: 9px 13px !important; font-size: 11px !important; letter-spacing: 0.5px !important; }
 }
 @media (max-width: 380px) {
-  .nav-wordmark { font-size: 17px !important; }
+  .nav-wordmark { font-size: 23px !important; }
 }
 
 /* Hero two-column → stack */
