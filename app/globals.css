@@ -91,17 +91,24 @@ a { -webkit-tap-highlight-color: transparent; }
     margin-right: auto !important;
   }
 }
-/* Phones: lay the polaroids out as a clean cascade instead of an overlapping pile */
+/* Phones: lay the polaroids out as a clean diagonal cascade with light overlap
+   instead of an overlapping pile. Shrink the photos so they fit the narrow
+   container, and bring the basketball shot (pic-3) to the front. */
 @media (max-width: 560px) {
   .hero-polaroids {
     transform: none !important;
-    height: 470px !important;
+    height: 412px !important;
     width: 100% !important;
-    max-width: 360px;
+    max-width: 340px;
   }
-  .hero-pic-1 { top: 0 !important; left: 0 !important; right: auto !important; bottom: auto !important; }
-  .hero-pic-2 { top: 140px !important; right: 0 !important; left: auto !important; bottom: auto !important; }
-  .hero-pic-3 { top: 272px !important; left: 28px !important; right: auto !important; bottom: auto !important; }
+  /* Shrink each photo (the HeroPhoto wrapper sits two levels inside .hero-pic) */
+  .hero-pic-1 > div > div { width: 150px !important; height: 180px !important; }
+  .hero-pic-2 > div > div { width: 140px !important; height: 180px !important; }
+  .hero-pic-3 > div > div { width: 175px !important; height: 145px !important; }
+  /* Diagonal top-left → bottom cascade; basketball (pic-3) brought to the front */
+  .hero-pic-1 { top: 0 !important;    left: 0 !important;    right: auto !important; bottom: auto !important; z-index: 1 !important; }
+  .hero-pic-2 { top: 18px !important;  left: 150px !important; right: auto !important; bottom: auto !important; z-index: 2 !important; }
+  .hero-pic-3 { top: 215px !important; left: 38px !important;  right: auto !important; bottom: auto !important; z-index: 5 !important; }
 }
 
 /* Stats ribbon 4 → 2×2 */

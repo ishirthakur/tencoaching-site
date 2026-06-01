@@ -417,7 +417,19 @@ function useSliderLoop(ref: RefObject<HTMLElement | null>, enabled: boolean) {
 
     const initId = window.setTimeout(recenter, 0);
     el.addEventListener("scroll", onScroll, { passive: true });
-    const ro = new ResizeObserver(recenter);
+    // Only recenter when the WIDTH changes (viewport / layout change).
+    // Ignore height-only changes — e.g. an accordion card expanding inside the
+    // slider — otherwise recentering would reset the user's scroll position.
+    let lastWidth = el.clientWidth;
+    const ro = new ResizeObserver(() => {
+      const w = el.clientWidth;
+      if (w !== lastWidth) {
+        lastWidth = w;
+        recenter();
+      } else {
+        measure();
+      }
+    });
     ro.observe(el);
 
     return () => {
