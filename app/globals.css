@@ -107,7 +107,7 @@ a { -webkit-tap-highlight-color: transparent; }
   .hero-pic-3 > div > div { width: 175px !important; height: 145px !important; }
   /* Diagonal top-left → bottom cascade; basketball (pic-3) brought to the front */
   .hero-pic-1 { top: 0 !important;    left: 0 !important;    right: auto !important; bottom: auto !important; z-index: 1 !important; }
-  .hero-pic-2 { top: 18px !important;  left: 150px !important; right: auto !important; bottom: auto !important; z-index: 2 !important; }
+  .hero-pic-2 { top: 65px !important;  left: 150px !important; right: auto !important; bottom: auto !important; z-index: 2 !important; }
   .hero-pic-3 { top: 215px !important; left: 38px !important;  right: auto !important; bottom: auto !important; z-index: 5 !important; }
 }
 
