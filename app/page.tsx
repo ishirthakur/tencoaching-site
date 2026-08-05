@@ -94,17 +94,17 @@ function Placeholder({ label = "", style = {}, bg, fg, text, seed = 0 }: Placeho
 
 // ── Client photo component ────────────────────────────────────────────────
 
-function ClientPhoto({ src, label, minHeight = 480 }: { src: string; label: string; minHeight?: number }) {
+function ClientPhoto({ src, label }: { src: string; label: string; minHeight?: number }) {
   const [failed, setFailed] = useState(false);
   return (
     <div style={{
-      position: "relative", background: INK, width: "100%", height: "100%", minHeight,
+      position: "relative", background: INK, width: "100%", aspectRatio: "1 / 1", flexShrink: 0,
       display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden",
     }}>
       <Image src="/tc-logo-white.png" alt="" width={120} height={120}
         style={{ opacity: 0.35, display: "block", flexShrink: 0 }} />
       {!failed && (
-        <Image src={src} alt={label} fill
+        <Image src={src} alt={label} fill sizes="(max-width: 768px) 90vw, 620px"
           style={{ objectFit: "cover" }}
           onError={() => setFailed(true)} />
       )}
@@ -718,8 +718,7 @@ export default function HomePage() {
               <ClientPhoto src="/photos/tenhang-client-jerome.jpg" label="BEFORE → AFTER · JEROME" minHeight={340} />
               <div style={{ padding: "28px 24px", display: "flex", flexDirection: "column", gap: 18, background: CREAM, color: INK }}>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: INK, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>72KG → 63KG</span>
-                  <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: DEEP, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>24 WEEKS</span>
+                  <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: DEEP, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>72KG → 63KG</span>
                 </div>
                 <div style={{ fontSize: 13, lineHeight: 1.75, color: INK, fontStyle: "italic", flex: 1 }}>
                   &ldquo;I was in a rough place, stressed with work, barely exercising, eating whatever I wanted. Too many bad habits made me so unhappy, I knew something had to change. Being coached was exactly what I needed. Having Tenhang in my corner keeps me accountable on the days I don&apos;t feel like doing anything. The results have been crazy. I feel bigger, less stressed and more confident. It&apos;s not just how I look, it&apos;s how much I&apos;ve learned about health and fitness. Knowledge that will stay with me forever.&rdquo;
@@ -730,29 +729,37 @@ export default function HomePage() {
               </div>
             </motion.div>
 
-            {/* PLACEHOLDERS — swap in real client results as they come */}
-            {[0, 1, 2, 3].map((k) => (
-              <motion.div key={`ph-${copy}-${k}`} variants={fadeUp} className="results-card" aria-hidden={copy > 0}>
-                <div style={{
-                  position: "relative", background: INK, width: "100%", height: "100%", minHeight: 340,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                }}>
-                  <Image src="/tc-logo-white.png" alt="" width={110} height={110} style={{ opacity: 0.22, display: "block" }} />
+            {/* TENSEN */}
+            <motion.div variants={fadeUp} className="results-card" aria-hidden={copy > 0}>
+              <ClientPhoto src="/photos/client-tensen.jpg" label="BEFORE → AFTER · TENSEN" minHeight={340} />
+              <div style={{ padding: "28px 24px", display: "flex", flexDirection: "column", gap: 18, background: CREAM, color: INK }}>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: DEEP, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>69KG → 60KG</span>
                 </div>
-                <div style={{ padding: "28px 24px", display: "flex", flexDirection: "column", gap: 18, background: CREAM, color: INK }}>
-                  <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                    <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: INK, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>Your result</span>
-                    <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: DEEP, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>Coming soon</span>
-                  </div>
-                  <div style={{ fontSize: 13, lineHeight: 1.75, color: SUB, fontStyle: "italic", flex: 1 }}>
-                    &ldquo;This space is reserved for the next transformation. More client stories are on the way — yours could be one of them.&rdquo;
-                  </div>
-                  <div>
-                    <div style={{ fontFamily: display, fontSize: 28, letterSpacing: 1, color: SUB }}>YOU&apos;RE NEXT</div>
-                  </div>
+                <div style={{ fontSize: 13, lineHeight: 1.75, color: INK, fontStyle: "italic", flex: 1 }}>
+                  &ldquo;I was going to the gym consistently but my diet and steps weren&apos;t consistent.<br /><br />Tenhang has the blueprint for body transformations, he made a diet and routine that fit around my busy schedule. The only thing you&apos;ll miss out on is having him as your personal chef like I did.<br /><br />For years I looked in the mirror and it wasn&apos;t what I envisioned. Now I&apos;m proud of what I&apos;ve accomplished. You feel like someone is always in your corner who understands you and wants you to succeed at all costs.&rdquo;
                 </div>
-              </motion.div>
-            ))}
+                <div>
+                  <div style={{ fontFamily: display, fontSize: 28, letterSpacing: 1 }}>TENSEN</div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* BENNY */}
+            <motion.div variants={fadeUp} className="results-card" aria-hidden={copy > 0}>
+              <ClientPhoto src="/photos/client-benny.jpg" label="BEFORE → AFTER · BENNY" minHeight={340} />
+              <div style={{ padding: "28px 24px", display: "flex", flexDirection: "column", gap: 18, background: CREAM, color: INK }}>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: DEEP, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>87KG → 70KG</span>
+                </div>
+                <div style={{ fontSize: 13, lineHeight: 1.75, color: INK, fontStyle: "italic", flex: 1 }}>
+                  &ldquo;I hadn&apos;t been to the gym in about a year and started feeling unhappy with my fitness level — no confidence in how I looked or felt.<br /><br />Having someone give you a plan, explain the reasoning behind it and keep you accountable makes all the difference. I used to struggle in the gym just not knowing what to do, having that guidance on training and nutrition changed everything.<br /><br />In the time I&apos;ve been coached by Ten I&apos;ve lost about 17kg while maintaining strength in my lifts. My body looks and feels better than it ever has even compared to my super active high school days. I&apos;m more confident, mentally in a better place and just overall feeling really good. These last few months have actually changed my life in some really positive ways.&rdquo;
+                </div>
+                <div>
+                  <div style={{ fontFamily: display, fontSize: 28, letterSpacing: 1 }}>BENNY</div>
+                </div>
+              </div>
+            </motion.div>
 
             </Fragment>
             ))}
