@@ -337,7 +337,7 @@ const PROGRAM_FEATURES = [
 ];
 
 const STATS = [
-  { n: "9–13KG", l: "AVG. FAT LOST PER CUT" },
+  { n: "9 – 13KG", l: "AVG. FAT LOST PER CUT" },
   { n: "12 WKS", l: "TO VISIBLE RESULTS" },
   { n: "1:1",    l: "TAILORED ONLY" },
   { n: "24/7",   l: "DIRECT ACCESS" },
