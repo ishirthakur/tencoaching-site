@@ -167,7 +167,7 @@ function AboutPhoto({ src }: { src: string }) {
 
 // ── Journal card portrait photo ───────────────────────────────────────────
 
-function JournalPhoto({ src }: { src: string }) {
+function JournalPhoto({ src, position = "top" }: { src: string; position?: string }) {
   const [failed, setFailed] = useState(false);
   return (
     <div style={{
@@ -179,7 +179,7 @@ function JournalPhoto({ src }: { src: string }) {
         style={{ opacity: 0.3, flexShrink: 0 }} />
       {!failed && (
         <Image src={src} alt="" fill
-          style={{ objectFit: "cover", objectPosition: "top" }}
+          style={{ objectFit: "cover", objectPosition: position }}
           onError={() => setFailed(true)} />
       )}
     </div>
@@ -872,7 +872,7 @@ export default function HomePage() {
                   boxShadow: `4px 4px 0 ${INK}`, cursor: "pointer",
                   display: "flex", flexDirection: "column",
                 }}>
-                <JournalPhoto src={p.photo} />
+                <JournalPhoto src={p.photo} position={p.cat === "PEAK" ? "center" : "top"} />
                 <div style={{ padding: "22px 22px 24px", flex: 1, display: "flex", flexDirection: "column" }}>
                   <div style={{ marginBottom: 14 }}>
                     <span style={{ fontFamily: mono, fontSize: 10, background: INK, color: CREAM, padding: "3px 8px", letterSpacing: 1 }}>{p.cat}</span>
