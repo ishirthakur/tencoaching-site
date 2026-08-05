@@ -15,6 +15,9 @@
 *::after { box-sizing: border-box; }
 
 html {
+  /* Lock the site to its light branding — stops browsers/OS forced dark mode
+     from auto-inverting the cream/ink palette */
+  color-scheme: light;
   margin: 0;
   padding: 0;
   background: #F5EDD8;
