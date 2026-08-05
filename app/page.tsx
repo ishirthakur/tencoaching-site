@@ -721,7 +721,7 @@ export default function HomePage() {
                   <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: DEEP, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>72KG → 63KG</span>
                 </div>
                 <div style={{ fontSize: 13, lineHeight: 1.75, color: INK, fontStyle: "italic", flex: 1 }}>
-                  &ldquo;I was in a rough place, stressed with work, barely exercising, eating whatever I wanted. Too many bad habits made me so unhappy, I knew something had to change. Being coached was exactly what I needed. Having Tenhang in my corner keeps me accountable on the days I don&apos;t feel like doing anything. The results have been crazy. I feel bigger, less stressed and more confident. It&apos;s not just how I look, it&apos;s how much I&apos;ve learned about health and fitness. Knowledge that will stay with me forever.&rdquo;
+                  &ldquo;I was in a rough place, stressed with work, barely exercising, eating whatever I wanted. Too many bad habits made me so unhappy, I knew something had to change.<br /><br />Being coached was exactly what I needed. Having Tenhang in my corner keeps me accountable on the days I don&apos;t feel like doing anything. The results have been crazy.<br /><br />I feel bigger, less stressed and more confident. It&apos;s not just how I look, it&apos;s how much I&apos;ve learned about health and fitness. Knowledge that will stay with me forever.&rdquo;
                 </div>
                 <div>
                   <div style={{ fontFamily: display, fontSize: 28, letterSpacing: 1 }}>JEROME</div>
