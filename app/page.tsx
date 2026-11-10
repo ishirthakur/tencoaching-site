@@ -761,6 +761,22 @@ export default function HomePage() {
               </div>
             </motion.div>
 
+            {/* ELSON */}
+            <motion.div variants={fadeUp} className="results-card" aria-hidden={copy > 0}>
+              <ClientPhoto src="/photos/client-elson.jpg" label="BEFORE → AFTER · ELSON" minHeight={340} />
+              <div style={{ padding: "28px 24px", display: "flex", flexDirection: "column", gap: 18, background: CREAM, color: INK }}>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  <span style={{ fontFamily: mono, fontSize: 11, letterSpacing: 1, fontWeight: 700, background: DEEP, color: CREAM, padding: "5px 12px", borderRadius: 5, textTransform: "uppercase" }}>76KG → 73KG</span>
+                </div>
+                <div style={{ fontSize: 13, lineHeight: 1.75, color: INK, fontStyle: "italic", flex: 1 }}>
+                  &ldquo;Before we started I was just starting full time, eating slop and over training to justify it. Tenhang gave me structure to hold onto while transitioning and made it heaps easy.<br /><br />The experience was waaay easier than I thought and taught me a lot I keep in mind daily, like how to meal prep, count calories and which macros to track. Having someone keep me accountable made sticking to the plan the smoothest thing, because I could never let down someone who believed in me.<br /><br />I&apos;m heaps leaner now and somehow stronger than when I started, with abs even when sitting. I feel hella light and more agile without losing any strength. I feel very aesthetic :)&rdquo;
+                </div>
+                <div>
+                  <div style={{ fontFamily: display, fontSize: 28, letterSpacing: 1 }}>ELSON</div>
+                </div>
+              </div>
+            </motion.div>
+
             </Fragment>
             ))}
           </motion.div>
@@ -783,7 +799,7 @@ export default function HomePage() {
                 position: "absolute", top: -14, left: 30, width: 80, height: 24,
                 background: TAPE, transform: "rotate(-3deg)", zIndex: 1,
               }} />
-              <AboutPhoto src="/photos/tenhang-japan-travel.jpg" />
+              <AboutPhoto src="/photos/tenhang-about.jpg" />
             </motion.div>
 
             {/* Text col */}
@@ -792,7 +808,7 @@ export default function HomePage() {
                 MEET YOUR <span style={{ color: DEEP, fontStyle: "italic" }}>COACH</span>
               </motion.h2>
               <motion.div variants={fadeUp} style={{ marginTop: 28, fontSize: 17, color: SUB, lineHeight: 1.7, maxWidth: 560, display: "flex", flexDirection: "column", gap: "1.2em" }}>
-                <p>I&apos;m Tenhang, a 22 year old from Western Sydney who&apos;s obsessed with fitness, living life, and helping people become the best version of themselves.</p>
+                <p>I&apos;m Tenhang, a 23 year old from Western Sydney who&apos;s obsessed with fitness, living life, and helping people become the best version of themselves.</p>
                 <p>As a kid I tried every sport I could get my hands on, footy, AFL, to finding my real home on the basketball court. Basketball has been a massive part of my life since high school and still is today, and eventually that love for sport led me to falling in love with the gym. Fitness was never something I forced, it was just always there, evolving with me. When I started taking it seriously something clicked. Not just physically but mentally. I realised you don&apos;t have to choose between looking your best and living your life, the late nights, the trips overseas, the weekends with people you love. You can have both.</p>
                 <p>Today I coach people who want that same thing. I travel whenever I have the opportunity, I&apos;m a foodie at heart who loves eating a lot, and I&apos;m always down for a good time! Fitness never stopped me from any of that, if anything it made me enjoy it even more. Every client I work with I treat like a mate. I&apos;m invested in where you end up because watching someone hit their goal is genuinely one of the best feelings I know. This started as a passion. Now it&apos;s my purpose.</p>
               </motion.div>
