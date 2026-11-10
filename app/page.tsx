@@ -440,6 +440,66 @@ function useSliderLoop(ref: RefObject<HTMLElement | null>, enabled: boolean) {
   }, [ref, enabled]);
 }
 
+// Auto-advances a looping slider (built by useSliderLoop) one card at a time.
+// Pauses while the visitor hovers, touches or focuses it, while it is off
+// screen or the tab is hidden, and never runs for reduced-motion users.
+function useAutoAdvance(ref: RefObject<HTMLElement | null>, intervalMs = 4500) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const COPIES = 3;
+    let hovering = false;
+    let inView = false;
+    let resumeAt = 0;
+
+    const step = () => {
+      const first = el.children[0] as HTMLElement | undefined;
+      const second = el.children[1] as HTMLElement | undefined;
+      if (!first) return 0;
+      return second ? second.offsetLeft - first.offsetLeft : first.offsetWidth;
+    };
+
+    const tick = () => {
+      if (hovering || !inView || document.hidden || Date.now() < resumeAt) return;
+      const s = step();
+      const setWidth = el.scrollWidth / COPIES;
+      if (!s || !setWidth) return;
+      // Jump back one identical set first so the smooth scroll never crosses
+      // the point where useSliderLoop would reposition mid-animation.
+      if (el.scrollLeft + s > setWidth * 2.2) el.scrollLeft -= setWidth;
+      el.scrollBy({ left: s, behavior: "smooth" });
+    };
+
+    const pause = () => { hovering = true; };
+    const resume = () => { hovering = false; resumeAt = Date.now() + intervalMs; };
+    const touched = () => { resumeAt = Date.now() + intervalMs * 2; };
+
+    el.addEventListener("mouseenter", pause);
+    el.addEventListener("mouseleave", resume);
+    el.addEventListener("focusin", pause);
+    el.addEventListener("focusout", resume);
+    el.addEventListener("touchstart", touched, { passive: true });
+    el.addEventListener("wheel", touched, { passive: true });
+
+    const io = new IntersectionObserver(([e]) => { inView = e.isIntersecting; }, { threshold: 0.3 });
+    io.observe(el);
+    const id = window.setInterval(tick, intervalMs);
+
+    return () => {
+      window.clearInterval(id);
+      io.disconnect();
+      el.removeEventListener("mouseenter", pause);
+      el.removeEventListener("mouseleave", resume);
+      el.removeEventListener("focusin", pause);
+      el.removeEventListener("focusout", resume);
+      el.removeEventListener("touchstart", touched);
+      el.removeEventListener("wheel", touched);
+    };
+  }, [ref, intervalMs]);
+}
+
 // ── Page ─────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
@@ -457,6 +517,7 @@ export default function HomePage() {
   useSliderLoop(journalRef, isMobile);
   useSliderLoop(galleryRef, isMobile);
   useSliderLoop(resultsRef, true);
+  useAutoAdvance(resultsRef);
 
   useEffect(() => {
     if (activePost === null) {
