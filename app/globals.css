@@ -199,6 +199,15 @@ a { -webkit-tap-highlight-color: transparent; }
   padding: 8px 4px 24px;
 }
 .results-grid::-webkit-scrollbar { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .results-grid { cursor: grab; }
+}
+.results-grid.dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+.results-grid img { -webkit-user-drag: none; }
 
 .results-card {
   flex: 0 0 min(620px, 90%);

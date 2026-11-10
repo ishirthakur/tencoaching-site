@@ -500,6 +500,69 @@ function useAutoAdvance(ref: RefObject<HTMLElement | null>, intervalMs = 4500) {
   }, [ref, intervalMs]);
 }
 
+// Lets desktop visitors click and drag a slider sideways with the mouse.
+// Touch and trackpad scrolling are left to the browser.
+function useDragScroll(ref: RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    let down = false;
+    let moved = 0;
+    let lastX = 0;
+    let settleId = 0;
+
+    const onDown = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse" || e.button !== 0) return;
+      down = true;
+      moved = 0;
+      lastX = e.clientX;
+      window.clearTimeout(settleId);
+      el.classList.add("dragging");
+    };
+    const onMove = (e: PointerEvent) => {
+      if (!down) return;
+      const dx = e.clientX - lastX;
+      lastX = e.clientX;
+      moved += Math.abs(dx);
+      el.scrollLeft -= dx;
+    };
+    const onUp = () => {
+      if (!down) return;
+      down = false;
+      // Settle on the nearest card, then hand control back to scroll-snap.
+      const edge = el.getBoundingClientRect().left + (parseFloat(getComputedStyle(el).scrollPaddingLeft) || 0);
+      let best = Infinity;
+      for (const child of Array.from(el.children)) {
+        const d = child.getBoundingClientRect().left - edge;
+        if (Math.abs(d) < Math.abs(best)) best = d;
+      }
+      if (Number.isFinite(best)) el.scrollBy({ left: best, behavior: "smooth" });
+      settleId = window.setTimeout(() => el.classList.remove("dragging"), 450);
+    };
+    // A drag should not also count as a click on whatever is under the mouse.
+    const onClick = (e: MouseEvent) => {
+      if (moved > 6) { e.preventDefault(); e.stopPropagation(); }
+    };
+    const noNativeDrag = (e: DragEvent) => e.preventDefault();
+
+    el.addEventListener("pointerdown", onDown);
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    el.addEventListener("click", onClick, true);
+    el.addEventListener("dragstart", noNativeDrag);
+
+    return () => {
+      window.clearTimeout(settleId);
+      el.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      el.removeEventListener("click", onClick, true);
+      el.removeEventListener("dragstart", noNativeDrag);
+    };
+  }, [ref]);
+}
+
 // ── Page ─────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
@@ -518,6 +581,7 @@ export default function HomePage() {
   useSliderLoop(galleryRef, isMobile);
   useSliderLoop(resultsRef, true);
   useAutoAdvance(resultsRef);
+  useDragScroll(resultsRef);
 
   useEffect(() => {
     if (activePost === null) {
